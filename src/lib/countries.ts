@@ -1,0 +1,16 @@
+export const countries = [
+  { id: 1, label: "us", name: "United States" },
+  { id: 2, label: "ca", name: "Canada" },
+  { id: 3, label: "mx", name: "Mexico" },
+  { id: 4, label: "br", name: "Brazil" },
+  { id: 5, label: "ar", name: "Argentina" },
+  { id: 6, label: "uy", name: "Uruguay" },
+  { id: 7, label: "gb", name: "United Kingdom" },
+  { id: 8, label: "fr", name: "France" },
+  { id: 9, label: "de", name: "Germany" },
+  { id: 10, label: "it", name: "Italy" },
+  { id: 11, label: "es", name: "Spain" },
+  { id: 12, label: "pt", name: "Portugal" },
+  { id: 13, label: "ru", name: "Russia" },
+  { id: 14, label: "cn", name: "China" },
+];
