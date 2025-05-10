@@ -3,18 +3,31 @@
 import { useFormData } from "@/context/SignupStepContext";
 import { useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Check, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import StepButtons from "../StepButtons";
 
 export default function DetailsConfirmationStep() {
+  const [isLoading, setIsLoading] = useState(false);
   const { data } = useFormData();
   const { handleSubmit } = useForm({
     defaultValues: data,
   });
 
-  const submitData = () => {
-    console.log(data);
+  const router = useRouter();
+
+  const submitData = async () => {
+    setIsLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    } finally {
+      setIsLoading(false);
+      console.log(data);
+      router.push("/signup/step-5");
+    }
   };
 
   const formatDate = (date: Date) => {
@@ -109,7 +122,7 @@ export default function DetailsConfirmationStep() {
         </Card>
       </div>
 
-      <StepButtons />
+      <StepButtons isLoading={isLoading} />
     </form>
   );
 }

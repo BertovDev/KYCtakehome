@@ -27,6 +27,7 @@ export default function FileUploadStep({}: Props) {
     back: null,
   });
   const [uploadPhotoFiles, setUploadPhotoFiles] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     setValue,
@@ -39,9 +40,17 @@ export default function FileUploadStep({}: Props) {
     resolver: zodResolver(kycSchema),
   });
 
-  const onSubmit = handleSubmit((values: KycFormValues) => {
-    setData({ ...data, ...values });
-    router.push("/signup/step-4");
+  const onSubmit = handleSubmit(async (values: KycFormValues) => {
+    setIsLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    } finally {
+      setIsLoading(false);
+      setData({ ...data, ...values });
+      router.push("/signup/step-4");
+    }
   });
 
   const handleFrontIdUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -191,7 +200,7 @@ export default function FileUploadStep({}: Props) {
         )}
       </div>
 
-      <StepButtons />
+      <StepButtons isLoading={isLoading} />
     </form>
   );
 }

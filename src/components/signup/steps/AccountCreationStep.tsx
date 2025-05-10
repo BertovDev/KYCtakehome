@@ -15,6 +15,7 @@ type Props = {};
 export default function AccountCreationStep({}: Props) {
   const router = useRouter();
   const { data, setData } = useFormData();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const {
     register,
@@ -29,9 +30,17 @@ export default function AccountCreationStep({}: Props) {
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = handleSubmit((values: SignUpFormValues) => {
-    setData({ ...data, ...values });
-    router.push("/signup/step-2");
+  const onSubmit = handleSubmit(async (values: SignUpFormValues) => {
+    setIsLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    } finally {
+      setIsLoading(false);
+      setData({ ...data, ...values });
+      router.push("/signup/step-2");
+    }
   });
 
   return (
@@ -95,7 +104,7 @@ export default function AccountCreationStep({}: Props) {
           </p>
         )}
       </div>
-      <StepButtons />
+      <StepButtons isLoading={isLoading} />
     </form>
   );
 }

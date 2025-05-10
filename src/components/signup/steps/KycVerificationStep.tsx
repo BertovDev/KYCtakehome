@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -30,6 +30,7 @@ type CountryData = {
 type Props = {};
 
 export default function KycVerificationStep({}: Props) {
+  const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
   const { data, setData } = useFormData();
 
@@ -52,11 +53,26 @@ export default function KycVerificationStep({}: Props) {
     resolver: zodResolver(detailsConfirmationSchema),
   });
 
-  const onSubmit = handleSubmit((values: DetailsConfirmationFormValues) => {
-    console.log("submit");
-    setData({ ...data, ...values });
-    router.push("/signup/step-3");
-  });
+  useEffect(() => {
+    if (!data.email || !data.password) {
+      router.push("/signup/step-1");
+    }
+  }, [data, router]);
+
+  const onSubmit = handleSubmit(
+    async (values: DetailsConfirmationFormValues) => {
+      setIsLoading(true);
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      } catch (error) {
+        console.error("Error during form submission:", error);
+      } finally {
+        setIsLoading(false);
+        setData({ ...data, ...values });
+        router.push("/signup/step-3");
+      }
+    }
+  );
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
@@ -69,7 +85,7 @@ export default function KycVerificationStep({}: Props) {
           {...register("fullname")}
           className="w-full p-2 border rounded-md"
           placeholder="Enter your full name"
-          // disabled={isLoading}
+          disabled={isLoading}
         />
         {errors.fullname && (
           <p className="text-red-500 text-sm mt-1">
@@ -87,7 +103,7 @@ export default function KycVerificationStep({}: Props) {
           {...register("fullAddress")}
           className="w-full p-2 border rounded-md"
           placeholder="Enter your street address"
-          // disabled={isLoading}
+          disabled={isLoading}
         />
         {errors.fullAddress && (
           <p className="text-red-500 text-sm mt-1">
@@ -107,7 +123,7 @@ export default function KycVerificationStep({}: Props) {
             {...register("city")}
             className="w-full p-2 border rounded-md"
             placeholder="City"
-            // disabled={isLoading}
+            disabled={isLoading}
           />
           {errors.city && (
             <p className="text-red-500 text-sm mt-1">
@@ -125,7 +141,7 @@ export default function KycVerificationStep({}: Props) {
             {...register("state")}
             className="w-full p-2 border rounded-md"
             placeholder="State/Province"
-            // disabled={isLoading}
+            disabled={isLoading}
           />
           {errors.state && (
             <p className="text-red-500 text-sm mt-1">
@@ -146,7 +162,7 @@ export default function KycVerificationStep({}: Props) {
             {...register("zipcode")}
             className="w-full p-2 border rounded-md"
             placeholder="Zip/Postal Code"
-            // disabled={isLoading}
+            disabled={isLoading}
           />
           {errors.zipcode && (
             <p className="text-red-500 text-sm mt-1">
@@ -165,8 +181,7 @@ export default function KycVerificationStep({}: Props) {
             }}
             value={watch("country") || ""}
             {...register("country")}
-
-            // disabled={isLoading}
+            disabled={isLoading}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select a country" />
@@ -202,7 +217,7 @@ export default function KycVerificationStep({}: Props) {
             valueAsDate: true,
           })}
           className="w-full p-2 border rounded-md"
-          // disabled={isLoading}
+          disabled={isLoading}
         />
         {errors.dateOfBirth && (
           <p className="text-red-500 text-sm mt-1">
@@ -211,26 +226,7 @@ export default function KycVerificationStep({}: Props) {
         )}
       </div>
 
-      <StepButtons />
-      {/* <div>
-        <Label
-          htmlFor="governmentIdFile"
-          className="block text-sm font-medium mb-2"
-        >
-          Upload Government ID
-        </Label>
-        <Input
-          id="governmentIdFile"
-          type="file"
-          accept="image/*,.pdf"
-          {...register("governmentIdFile")}
-          className="w-full p-2 border rounded-md"
-          // disabled={isLoading}
-        />
-        {errors.governmentIdFile && (
-          <p className="text-red-500 text-sm mt-1">{errors.governmentIdFile.message?.toString()}</p>
-        )}
-      </div> */}
+      <StepButtons isLoading={isLoading} />
     </form>
   );
 }

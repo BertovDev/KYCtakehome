@@ -1,5 +1,5 @@
 "use client";
-import React, { Children, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import {
   Card,
   CardContent,
@@ -16,10 +16,10 @@ type Props = {
   children: ReactNode[];
 };
 
-const isComplete = false;
-
 export default function layout({ children }: Props) {
   const { currentStep } = useStep();
+
+  const isComplete = false;
 
   return (
     <SignupProvider>
@@ -37,29 +37,15 @@ export default function layout({ children }: Props) {
             </CardHeader>
 
             <CardContent className="pt-8">
-              {isComplete ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {/* <WalletInitialization
-              userName={formData.name}
-              startingPoints={100}
-              onComplete={() => console.log("Wallet setup complete", formData)}
-            /> */}
-                </motion.div>
-              ) : (
-                <motion.div
-                  key={currentStep}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {children}
-                </motion.div>
-              )}
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {children}
+              </motion.div>
             </CardContent>
           </Card>
         </div>

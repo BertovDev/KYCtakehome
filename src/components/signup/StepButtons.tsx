@@ -2,25 +2,27 @@ import React from "react";
 import { Button } from "../ui/button";
 import { ChevronRight } from "lucide-react";
 
-type Props = {};
+type Props = {
+  isLoading: boolean;
+};
 
-export default function StepButtons({}: Props) {
-  const handleNext = () => {
-    console.log("Next");
-    // setStep(currentStep + 1);
+export default function StepButtons({ isLoading }: Props) {
+  const handleNext = async () => {
+    console.log("handleNext");
   };
 
   const handleBack = () => {
+    console.log("handleBack");
     // setStep(currentStep - 1);
   };
 
   return (
     <div className="flex justify-between mt-9">
-      <Button variant="outline" onClick={handleBack} disabled={false}>
+      <Button variant="outline" onClick={handleBack} disabled={isLoading}>
         Back
       </Button>
-      <Button type="submit" onClick={handleNext} disabled={false}>
-        {false ? (
+      <Button type="submit" disabled={isLoading}>
+        {isLoading ? (
           <span className="flex items-center">
             <svg
               className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
@@ -46,8 +48,8 @@ export default function StepButtons({}: Props) {
           </span>
         ) : (
           <>
-            {false ? "Complete Setup" : "Continue"}
-            {false && <ChevronRight className="ml-2 h-4 w-4" />}
+            {isLoading ? "Processing..." : "Continue"}
+            {isLoading && <ChevronRight className="ml-2 h-4 w-4" />}
           </>
         )}
       </Button>
