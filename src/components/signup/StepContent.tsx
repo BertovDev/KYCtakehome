@@ -25,12 +25,13 @@ const StepContent = ({
 }: StepContentProps) => {
   if (step === 1) {
     return (
-      <AccountCreationStep
-        formData={formData}
-        onChange={onChange}
-        errors={errors}
-        isLoading={isLoading}
-      />
+      <div></div>
+      // <AccountCreationStep
+      //   formData={formData}
+      //   onChange={onChange}
+      //   errors={errors}
+      //   isLoading={isLoading}
+      // />
     );
   } else if (step === 2) {
     return (

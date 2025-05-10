@@ -1,5 +1,5 @@
-import React from "react";
-import { StepsProps } from "@/types/formTypes";
+"use client";
+import React, { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,6 +11,15 @@ import {
 } from "@/components/ui/select";
 
 import { countries } from "@/lib/countries";
+import { useRouter } from "next/navigation";
+import { useFormData } from "@/context/SignupStepContext";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  DetailsConfirmationFormValues,
+  detailsConfirmationSchema,
+} from "@/lib/validation";
+import StepButtons from "../StepButtons";
 
 type CountryData = {
   id: number;
@@ -18,29 +27,88 @@ type CountryData = {
   label: string;
 };
 
-export default function KycVerificationStep({
-  errors,
-  onChange,
-  formData,
-  isLoading,
-}: StepsProps) {
+type Props = {};
+
+export default function KycVerificationStep({}: Props) {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const router = useRouter();
+  const { data, setData } = useFormData();
+
+  const {
+    register,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<DetailsConfirmationFormValues>({
+    defaultValues: {
+      fullname: "",
+      dateOfBirth: new Date(),
+      fullAddress: "",
+      country: "",
+      city: "",
+      state: "",
+      zipcode: "",
+    },
+    resolver: zodResolver(detailsConfirmationSchema),
+  });
+
+  useEffect(() => {
+    if (!data.email || !data.password) {
+      router.push("/signup/step-1");
+    }
+  }, [data, router]);
+
+  const onSubmit = handleSubmit(
+    async (values: DetailsConfirmationFormValues) => {
+      setIsLoading(true);
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      } catch (error) {
+        console.error("Error during form submission:", error);
+      } finally {
+        setIsLoading(false);
+        setData({ ...data, ...values });
+        router.push("/signup/step-3");
+      }
+    }
+  );
   return (
-    <div className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-4">
       <div>
-        <label htmlFor="fullAddress" className="block text-sm font-medium mb-2">
+        <label htmlFor="fullName" className="block text-sm font-medium mb-2">
+          Full Name
+        </label>
+        <Input
+          id="fullName"
+          type="text"
+          {...register("fullname")}
+          className="w-full p-2 border rounded-md"
+          placeholder="Enter your full name"
+          disabled={isLoading}
+        />
+        {errors.fullname && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.fullname.message?.toString()}
+          </p>
+        )}
+      </div>
+      <div>
+        <label htmlFor="address" className="block text-sm font-medium mb-2">
           Full Address
         </label>
         <Input
           id="fullAddress"
           type="text"
-          value={formData.fullAddress}
-          onChange={(e) => onChange("fullAddress", e.target.value)}
+          {...register("fullAddress")}
           className="w-full p-2 border rounded-md"
           placeholder="Enter your street address"
           disabled={isLoading}
         />
         {errors.fullAddress && (
-          <p className="text-red-500 text-sm mt-1">{errors.fullAddress}</p>
+          <p className="text-red-500 text-sm mt-1">
+            {errors.fullAddress.message?.toString()}
+          </p>
         )}
       </div>
 
@@ -52,14 +120,15 @@ export default function KycVerificationStep({
           <Input
             id="city"
             type="text"
-            value={formData.city}
-            onChange={(e) => onChange("city", e.target.value)}
+            {...register("city")}
             className="w-full p-2 border rounded-md"
             placeholder="City"
             disabled={isLoading}
           />
           {errors.city && (
-            <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {errors.city.message?.toString()}
+            </p>
           )}
         </div>
         <div>
@@ -69,34 +138,36 @@ export default function KycVerificationStep({
           <Input
             id="state"
             type="text"
-            value={formData.state}
-            onChange={(e) => onChange("state", e.target.value)}
+            {...register("state")}
             className="w-full p-2 border rounded-md"
             placeholder="State/Province"
             disabled={isLoading}
           />
           {errors.state && (
-            <p className="text-red-500 text-sm mt-1">{errors.state}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {errors.state.message?.toString()}
+            </p>
           )}
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="zipCode" className="block text-sm font-medium mb-2">
+          <Label htmlFor="zipcode" className="block text-sm font-medium mb-2">
             Zip/Postal Code
           </Label>
           <Input
-            id="zipCode"
+            id="zipcode"
             type="text"
-            value={formData.zipCode}
-            onChange={(e) => onChange("zipCode", e.target.value)}
+            {...register("zipcode")}
             className="w-full p-2 border rounded-md"
             placeholder="Zip/Postal Code"
             disabled={isLoading}
           />
-          {errors.zipCode && (
-            <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>
+          {errors.zipcode && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.zipcode.message?.toString()}
+            </p>
           )}
         </div>
         <div>
@@ -105,8 +176,11 @@ export default function KycVerificationStep({
           </Label>
 
           <Select
-            onValueChange={(e) => onChange("country", e)}
-            defaultValue={formData.country}
+            onValueChange={(value) => {
+              setValue("country", value);
+            }}
+            value={watch("country") || ""}
+            {...register("country")}
             disabled={isLoading}
           >
             <SelectTrigger>
@@ -124,7 +198,9 @@ export default function KycVerificationStep({
           </Select>
 
           {errors.country && (
-            <p className="text-red-500 text-sm mt-1">{errors.country}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {errors.country.message?.toString()}
+            </p>
           )}
         </div>
       </div>
@@ -136,37 +212,21 @@ export default function KycVerificationStep({
         <Input
           id="dateOfBirth"
           type="date"
-          value={formData.dateOfBirth}
-          onChange={(e) => onChange("dateOfBirth", e.target.value)}
+          max={new Date().toISOString().split("T")[0]}
+          {...register("dateOfBirth", {
+            valueAsDate: true,
+          })}
           className="w-full p-2 border rounded-md"
           disabled={isLoading}
         />
         {errors.dateOfBirth && (
-          <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth}</p>
+          <p className="text-red-500 text-sm mt-1">
+            {errors.dateOfBirth.message?.toString()}
+          </p>
         )}
       </div>
 
-      <div>
-        <Label
-          htmlFor="governmentIdFile"
-          className="block text-sm font-medium mb-2"
-        >
-          Upload Government ID
-        </Label>
-        <Input
-          id="governmentIdFile"
-          type="file"
-          accept="image/*,.pdf"
-          onChange={(e) =>
-            onChange("governmentIdFile", e.target.files?.[0] || null)
-          }
-          className="w-full p-2 border rounded-md"
-          disabled={isLoading}
-        />
-        {errors.governmentIdFile && (
-          <p className="text-red-500 text-sm mt-1">{errors.governmentIdFile}</p>
-        )}
-      </div>
-    </div>
+      <StepButtons isLoading={isLoading} />
+    </form>
   );
 }

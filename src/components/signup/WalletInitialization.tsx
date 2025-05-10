@@ -13,17 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
-interface WalletInitializationProps {
-  onComplete?: () => void;
-  userName?: string;
-  startingPoints?: number;
-}
-
-const WalletInitialization = ({
-  onComplete = () => {},
-  userName = "Competitor",
-  startingPoints = 100,
-}: WalletInitializationProps) => {
+const WalletInitialization = () => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -127,7 +117,7 @@ const WalletInitialization = ({
               )}
 
               <div className="space-y-4 text-center">
-                <h3 className="text-xl font-medium">Welcome, {userName}!</h3>
+                <h3 className="text-xl font-medium">Welcome!</h3>
                 <div className="p-4 bg-primary/5 rounded-lg">
                   <p className="text-sm text-muted-foreground mb-1">
                     Starting Balance
@@ -138,8 +128,7 @@ const WalletInitialization = ({
                     transition={{ delay: 0.2 }}
                     className="text-3xl font-bold text-primary"
                   >
-                    {startingPoints}{" "}
-                    <span className="text-base font-normal">points</span>
+                    100 <span className="text-base font-normal">points</span>
                   </motion.p>
                 </div>
                 <p className="text-sm text-muted-foreground">
@@ -151,11 +140,7 @@ const WalletInitialization = ({
           )}
         </CardContent>
         <CardFooter>
-          <Button
-            onClick={onComplete}
-            disabled={!isComplete}
-            className="w-full"
-          >
+          <Button onClick={() => {}} disabled={!isComplete} className="w-full">
             {isComplete ? "Continue to Dashboard" : "Setting up..."}
             {isComplete && <ArrowRight className="ml-2 h-4 w-4" />}
           </Button>

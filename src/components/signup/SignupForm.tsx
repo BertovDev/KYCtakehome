@@ -7,15 +7,17 @@ import { Button } from "../ui/button";
 import WalletInitialization from "./WalletInitialization";
 
 import { FormData } from "@/types/formTypes";
+import { useForm } from "react-hook-form";
 
 import StepContent from "./StepContent";
 import { motion } from "framer-motion";
+import { SignUpFormValues } from "@/lib/validation";
 
 const steps = [
   { id: 1, name: "Personal Information" },
   { id: 2, name: "Account Creation" },
   { id: 3, name: "KYC Verification" },
-  { id: 4, name: "Wallet Setup" },
+  { id: 4, name: "DetailConfirmation" },
 ];
 
 const mockErrorData = {
@@ -43,7 +45,19 @@ export default function SignupForm() {
     termsAccepted: false,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errorsRecord, setErrors] = useState<Record<string, string>>({});
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignUpFormValues>({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
   const validateStep = (step: number): boolean => {
     const newErrors: Record<string, string> = {};
@@ -130,8 +144,6 @@ export default function SignupForm() {
           return; // Error is already set in validateStep
         }
 
-        console.log(formData, currentStep);
-
         if (currentStep === 3) {
           console.log(formData);
         }
@@ -200,9 +212,9 @@ export default function SignupForm() {
     });
 
     // Clear error for this field when user starts typing
-    if (errors[field]) {
+    if (errorsRecord[field]) {
       setErrors({
-        ...errors,
+        ...errorsRecord,
         [field]: "",
       });
     }
@@ -277,14 +289,14 @@ export default function SignupForm() {
               <StepContent
                 step={currentStep}
                 formData={formData}
-                errors={errors}
+                errors={errorsRecord}
                 onChange={handleInputChange}
                 isLoading={isLoading}
               />
 
-              {errors.general && (
+              {errorsRecord.general && (
                 <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
-                  <p className="text-red-500 text-sm">{errors.general}</p>
+                  <p className="text-red-500 text-sm">{errorsRecord.general}</p>
                 </div>
               )}
 
