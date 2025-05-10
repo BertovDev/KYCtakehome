@@ -14,13 +14,16 @@ const STORAGE_KEY = "signup-data";
 const formDataContext = createContext<{
   data: FormData;
   setData: (data: FormData) => void;
+  isHydrated: boolean;
 }>({
   data: {},
   setData: () => {},
+  isHydrated: false,
 });
 
 export function SignupProvider({ children }: { children: ReactNode }) {
   const [data, setDataState] = useState<FormData>({});
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -31,6 +34,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
         console.error("Error parsing stored data:", error);
       }
     }
+    setIsHydrated(true);
   }, []);
 
   const setData = (newData: Partial<FormData>) => {
@@ -40,7 +44,7 @@ export function SignupProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <formDataContext.Provider value={{ data, setData }}>
+    <formDataContext.Provider value={{ data, setData, isHydrated }}>
       {children}
     </formDataContext.Provider>
   );

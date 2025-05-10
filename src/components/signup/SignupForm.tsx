@@ -9,7 +9,6 @@ import WalletInitialization from "./WalletInitialization";
 import { FormData } from "@/types/formTypes";
 import { useForm } from "react-hook-form";
 
-import StepContent from "./StepContent";
 import { motion } from "framer-motion";
 import { SignUpFormValues } from "@/lib/validation";
 
@@ -286,14 +285,6 @@ export default function SignupForm() {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <StepContent
-                step={currentStep}
-                formData={formData}
-                errors={errorsRecord}
-                onChange={handleInputChange}
-                isLoading={isLoading}
-              />
-
               {errorsRecord.general && (
                 <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
                   <p className="text-red-500 text-sm">{errorsRecord.general}</p>

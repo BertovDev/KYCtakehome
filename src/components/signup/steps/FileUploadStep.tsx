@@ -8,7 +8,7 @@ import { useFormData } from "@/context/SignupStepContext";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
 import StepButtons from "../StepButtons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 
 type Props = {};
@@ -20,7 +20,7 @@ type FileUploadId = {
 
 export default function FileUploadStep({}: Props) {
   const router = useRouter();
-  const { data, setData } = useFormData();
+  const { data, setData, isHydrated } = useFormData();
 
   const [uploadIdFiles, setUploadIdFiles] = useState<FileUploadId>({
     front: null,
@@ -28,6 +28,22 @@ export default function FileUploadStep({}: Props) {
   });
   const [uploadPhotoFiles, setUploadPhotoFiles] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+
+    if (
+      !data.fullAddress ||
+      !data.country ||
+      !data.city ||
+      !data.state ||
+      !data.zipcode ||
+      !data.fullname ||
+      !data.dateOfBirth
+    ) {
+      router.push("/signup/step-2");
+    }
+  }, [isHydrated, data, router]);
 
   const {
     setValue,
@@ -77,7 +93,9 @@ export default function FileUploadStep({}: Props) {
     }
   };
 
-  return (
+  return !isHydrated ? (
+    <p className="text-black text-3xl">Loading...</p>
+  ) : (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="space-y-2">
         <div className="flex gap-x-5 flex-row  items-center justify-center mt-2">

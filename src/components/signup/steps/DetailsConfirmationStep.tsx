@@ -25,7 +25,6 @@ export default function DetailsConfirmationStep() {
       console.error("Error during form submission:", error);
     } finally {
       setIsLoading(false);
-      console.log(data);
       router.push("/signup/step-5");
     }
   };

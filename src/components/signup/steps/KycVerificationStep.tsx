@@ -32,7 +32,7 @@ type Props = {};
 export default function KycVerificationStep({}: Props) {
   const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
-  const { data, setData } = useFormData();
+  const { data, setData, isHydrated } = useFormData();
 
   const {
     register,
@@ -55,10 +55,12 @@ export default function KycVerificationStep({}: Props) {
 
   useEffect(() => {
     console.log(JSON.parse(localStorage.getItem("signup-data") || "{}"));
+    if (!isHydrated) return;
+
     if (!data.email || !data.password) {
       router.push("/signup/step-1");
     }
-  }, [data, router]);
+  }, [isHydrated, data, router]);
 
   const onSubmit = handleSubmit(
     async (values: DetailsConfirmationFormValues) => {
@@ -74,7 +76,10 @@ export default function KycVerificationStep({}: Props) {
       }
     }
   );
-  return (
+
+  return !isHydrated ? (
+    <p className="text-black text-3xl">Loading...</p>
+  ) : (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
         <label htmlFor="fullName" className="block text-sm font-medium mb-2">
