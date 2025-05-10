@@ -54,6 +54,7 @@ export default function KycVerificationStep({}: Props) {
   });
 
   useEffect(() => {
+    console.log(JSON.parse(localStorage.getItem("signup-data") || "{}"));
     if (!data.email || !data.password) {
       router.push("/signup/step-1");
     }

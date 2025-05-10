@@ -1,7 +1,15 @@
 "use client";
 import { FormData } from "@/types/formTypes";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+
+const STORAGE_KEY = "signup-data";
 
 const formDataContext = createContext<{
   data: FormData;
@@ -12,7 +20,24 @@ const formDataContext = createContext<{
 });
 
 export function SignupProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<FormData>({});
+  const [data, setDataState] = useState<FormData>({});
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      try {
+        setDataState(JSON.parse(stored));
+      } catch (error) {
+        console.error("Error parsing stored data:", error);
+      }
+    }
+  }, []);
+
+  const setData = (newData: Partial<FormData>) => {
+    const updatedData = { ...data, ...newData };
+    setDataState(updatedData);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
+  };
 
   return (
     <formDataContext.Provider value={{ data, setData }}>
