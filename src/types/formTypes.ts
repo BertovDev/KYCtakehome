@@ -9,7 +9,7 @@ export type FormData = {
   fullAddress?: string;
   city?: string;
   state?: string;
-  zipcde?: string;
+  zipcode?: string;
   country?: string;
   dateOfBirth?: Date;
 

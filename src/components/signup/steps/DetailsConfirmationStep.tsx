@@ -65,7 +65,7 @@ export default function DetailsConfirmationStep() {
             </div>
             <div className="flex justify-between py-1">
               <span className="text-sm font-medium">ZIP Code</span>
-              <span className="text-sm text-gray-600">{data.zipcde}</span>
+              <span className="text-sm text-gray-600">{data.zipcode}</span>
             </div>
             <div className="flex justify-between py-1">
               <span className="text-sm font-medium">Country</span>

@@ -43,7 +43,7 @@ export default function KycVerificationStep({}: Props) {
     defaultValues: {
       fullname: "",
       dateOfBirth: new Date(),
-      address: "",
+      fullAddress: "",
       country: "",
       city: "",
       state: "",
@@ -82,16 +82,16 @@ export default function KycVerificationStep({}: Props) {
           Full Address
         </label>
         <Input
-          id="address"
+          id="fullAddress"
           type="text"
-          {...register("address")}
+          {...register("fullAddress")}
           className="w-full p-2 border rounded-md"
           placeholder="Enter your street address"
           // disabled={isLoading}
         />
-        {errors.address && (
+        {errors.fullAddress && (
           <p className="text-red-500 text-sm mt-1">
-            {errors.address.message?.toString()}
+            {errors.fullAddress.message?.toString()}
           </p>
         )}
       </div>
@@ -137,11 +137,11 @@ export default function KycVerificationStep({}: Props) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="zipCode" className="block text-sm font-medium mb-2">
+          <Label htmlFor="zipcode" className="block text-sm font-medium mb-2">
             Zip/Postal Code
           </Label>
           <Input
-            id="zipCode"
+            id="zipcode"
             type="text"
             {...register("zipcode")}
             className="w-full p-2 border rounded-md"
