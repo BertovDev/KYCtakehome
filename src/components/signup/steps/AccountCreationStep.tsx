@@ -1,34 +1,41 @@
+"use client";
 import React from "react";
-import { StepsProps } from "@/types/formTypes";
+import { FormErrors, StepsProps } from "@/types/formTypes";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useFormData } from "@/context/SignupStepContext";
+import StepButtons from "../StepButtons";
+import { useForm } from "react-hook-form";
+import { SignUpFormValues, signUpSchema } from "@/lib/validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
-export default function AccountCreationStep({
-  formData,
-  onChange,
-  isLoading,
-  errors,
-}: StepsProps) {
+type Props = {};
+
+export default function AccountCreationStep({}: Props) {
+  const router = useRouter();
+  const { data, setData } = useFormData();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpFormValues>({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const onSubmit = handleSubmit((values: SignUpFormValues) => {
+    setData({ ...data, ...values });
+    router.push("/signup/step-2");
+  });
+
   return (
-    <div className="space-y-4">
-      <div>
-        <Label htmlFor="name" className="block text-sm font-medium mb-2">
-          Full Name
-        </Label>
-        <Input
-          id="name"
-          type="text"
-          value={formData.name}
-          onChange={(e) => onChange("name", e.target.value)}
-          className="w-full p-2 border rounded-md"
-          placeholder="Enter your full name"
-          disabled={isLoading}
-        />
-        {errors.name && (
-          <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-        )}
-      </div>
-
+    <form className="space-y-4" onSubmit={onSubmit}>
       <div>
         <Label htmlFor="email" className="block text-sm font-medium mb-2">
           Email Address
@@ -36,35 +43,59 @@ export default function AccountCreationStep({
         <Input
           id="email"
           type="email"
-          value={formData.email}
-          onChange={(e) => onChange("email", e.target.value)}
+          {...register("email")}
           className="w-full p-2 border rounded-md"
           placeholder="Enter your email address"
-          disabled={isLoading}
+          // disabled={isLoading}
         />
         {errors.email && (
-          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+          <p className="text-red-500 text-sm mt-1">
+            {errors.email.message?.toString()}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <Label htmlFor="password" className="block text-sm font-medium mb-2">
+          Password
+        </Label>
+        <Input
+          id="password"
+          type="password"
+          {...register("password")}
+          className="w-full p-2 border rounded-md"
+          placeholder="Create a password"
+          // disabled={isLoading}
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.password.message?.toString()}
+          </p>
         )}
       </div>
 
       <div>
         <Label
-          htmlFor="profilePhoto"
+          htmlFor="confirmPassword"
           className="block text-sm font-medium mb-2"
         >
-          Profile Photo (Optional)
+          Confirm Password
         </Label>
         <Input
-          id="profilePhoto"
-          type="file"
-          accept="image/*"
-          onChange={(e) =>
-            onChange("profilePhoto", e.target.files?.[0] || null)
-          }
+          id="confirmPassword"
+          type="password"
+          {...register("confirmPassword")}
           className="w-full p-2 border rounded-md"
-          disabled={isLoading}
+          placeholder="Confirm your password"
+          // disabled={isLoading}
         />
+        {errors.confirmPassword && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.confirmPassword.message?.toString()}
+          </p>
+        )}
       </div>
-    </div>
+      <StepButtons />
+    </form>
   );
 }
