@@ -1,9 +1,9 @@
-import KycVerificationStep from "@/components/signup/steps/KycVerificationStep";
+import FileUploadStep from "@/components/signup/steps/FileUploadStep";
 
 export default function page() {
   return (
     <div>
-      <KycVerificationStep />
+      <FileUploadStep />
     </div>
   );
 }

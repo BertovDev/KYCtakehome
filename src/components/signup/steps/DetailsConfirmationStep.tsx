@@ -7,6 +7,7 @@ import { Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StepButtons from "../StepButtons";
+import { walletInitEndpoint } from "@/app/routes";
 
 export default function DetailsConfirmationStep() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,7 @@ export default function DetailsConfirmationStep() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 200));
       setIsLoading(false);
-      router.push("/signup/step-5");
+      router.push(walletInitEndpoint);
       console.log("submitData");
     } catch (error) {
       console.error("Error during form submission:", error);

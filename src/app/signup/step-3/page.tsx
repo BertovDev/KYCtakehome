@@ -1,9 +1,9 @@
-import FileUploadStep from "@/components/signup/steps/FileUploadStep";
+import DetailsConfirmationStep from "@/components/signup/steps/DetailsConfirmationStep";
 
 export default function page() {
   return (
     <div>
-      <FileUploadStep />
+      <DetailsConfirmationStep />
     </div>
   );
 }

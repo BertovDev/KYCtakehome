@@ -11,6 +11,7 @@ import StepButtons from "../StepButtons";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { simulateBackendFilePersistance } from "@/lib/utils";
+import { step1Endpoint, step3Endpoint } from "@/app/routes";
 
 type FileUploadId = {
   front: {
@@ -80,7 +81,7 @@ export default function FileUploadStep() {
       !data.fullname ||
       !data.dateOfBirth
     ) {
-      router.push("/signup/step-2");
+      router.push(step1Endpoint);
     }
 
     const files = simulateBackendFilePersistance(data);
@@ -141,7 +142,7 @@ export default function FileUploadStep() {
         },
       });
 
-      router.push("/signup/step-4");
+      router.push(step3Endpoint);
     }
   });
 

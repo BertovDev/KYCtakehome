@@ -31,7 +31,7 @@ export default function Layout({ children }: Props) {
                 Food Competition Signup
               </CardTitle>
 
-              <StepsCounter isComplete={isComplete} />
+              {currentStep >= 0 && <StepsCounter isComplete={isComplete} />}
             </CardHeader>
 
             <CardContent className="pt-8">
