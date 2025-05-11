@@ -8,37 +8,115 @@ import { useFormData } from "@/context/SignupStepContext";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
 import StepButtons from "../StepButtons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { simulateBackendFilePersistance } from "@/lib/utils";
 
 type Props = {};
 
 type FileUploadId = {
-  front: File | null;
-  back: File | null;
+  front: {
+    name: string;
+    type: string;
+  } | null;
+  back: {
+    name: string;
+    type: string;
+  } | null;
 };
 
 export default function FileUploadStep({}: Props) {
   const router = useRouter();
-  const { data, setData } = useFormData();
+  const { data, setData, isHydrated } = useFormData();
 
   const [uploadIdFiles, setUploadIdFiles] = useState<FileUploadId>({
-    front: null,
-    back: null,
+    front: data.governmentFrontIdFilesString
+      ? {
+          name: data.governmentFrontIdFilesString.name,
+          type: data.governmentFrontIdFilesString.type,
+        }
+      : null,
+    back: data.governmentBackIdFilesString
+      ? {
+          name: data.governmentBackIdFilesString.name,
+          type: data.governmentBackIdFilesString.type,
+        }
+      : null,
   });
-  const [uploadPhotoFiles, setUploadPhotoFiles] = useState<File[]>([]);
+  const [uploadPhotoFiles, setUploadPhotoFiles] = useState<{
+    name: string;
+    type: string;
+  } | null>(
+    data.profilePhotoString
+      ? {
+          name: data.profilePhotoString.name,
+          type: data.profilePhotoString.type,
+        }
+      : null
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const {
     setValue,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<KycFormValues>({
     defaultValues: {
-      profilePhoto: [],
+      governmentFrontIdFiles: undefined,
+      governmentBackIdFiles: undefined,
+      profilePhoto: undefined,
     },
     resolver: zodResolver(kycSchema),
   });
+
+  useEffect(() => {
+    if (!isHydrated) return;
+
+    if (
+      !data.fullAddress ||
+      !data.country ||
+      !data.city ||
+      !data.state ||
+      !data.zipcode ||
+      !data.fullname ||
+      !data.dateOfBirth
+    ) {
+      router.push("/signup/step-2");
+    }
+
+    const files = simulateBackendFilePersistance(data);
+    if (files) {
+      reset({
+        governmentFrontIdFiles: files.front,
+        governmentBackIdFiles: files.back,
+        profilePhoto: files.photo,
+      });
+    }
+
+    setUploadIdFiles({
+      front: data.governmentFrontIdFilesString
+        ? {
+            name: data.governmentFrontIdFilesString.name,
+            type: data.governmentFrontIdFilesString.type,
+          }
+        : null,
+      back: data.governmentBackIdFilesString
+        ? {
+            name: data.governmentBackIdFilesString.name,
+            type: data.governmentBackIdFilesString.type,
+          }
+        : null,
+    });
+    setUploadPhotoFiles(
+      data.profilePhotoString
+        ? {
+            name: data.profilePhotoString.name,
+            type: data.profilePhotoString.type,
+          }
+        : null
+    );
+  }, [isHydrated, data, router]);
 
   const onSubmit = handleSubmit(async (values: KycFormValues) => {
     setIsLoading(true);
@@ -48,7 +126,23 @@ export default function FileUploadStep({}: Props) {
       console.error("Error during form submission:", error);
     } finally {
       setIsLoading(false);
-      setData({ ...data, ...values });
+      setData({
+        ...data,
+        ...values,
+        governmentFrontIdFilesString: {
+          name: values.governmentFrontIdFiles?.name,
+          type: values.governmentFrontIdFiles?.type,
+        },
+        governmentBackIdFilesString: {
+          name: values.governmentBackIdFiles?.name,
+          type: values.governmentBackIdFiles?.type,
+        },
+        profilePhotoString: {
+          name: values.profilePhoto?.name,
+          type: values.profilePhoto?.type,
+        },
+      });
+
       router.push("/signup/step-4");
     }
   });
@@ -56,28 +150,51 @@ export default function FileUploadStep({}: Props) {
   const handleFrontIdUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadIdFiles((prev) => ({ ...prev, front: file }));
-      setValue("governmentFrontIdFiles", [file]);
+      setUploadIdFiles((prev) => ({
+        ...prev,
+        front: {
+          name: file.name,
+          type: file.type,
+        },
+      }));
+      setValue("governmentFrontIdFiles", file, {
+        shouldValidate: true,
+      });
     }
   };
 
   const handleBackIdUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadIdFiles((prev) => ({ ...prev, back: file }));
-      setValue("governmentBackIdFiles", [file]);
+      setUploadIdFiles((prev) => ({
+        ...prev,
+        back: {
+          name: file.name,
+          type: file.type,
+        },
+      }));
+      setValue("governmentBackIdFiles", file, {
+        shouldValidate: true,
+      });
     }
   };
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadPhotoFiles((prev) => [...prev, file]);
-      setValue("profilePhoto", uploadPhotoFiles);
+      setUploadPhotoFiles({
+        name: file.name,
+        type: file.type,
+      });
+      setValue("profilePhoto", file, {
+        shouldValidate: true,
+      });
     }
   };
 
-  return (
+  return !isHydrated ? (
+    <p className="text-black text-3xl">Loading...</p>
+  ) : (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="space-y-2">
         <div className="flex gap-x-5 flex-row  items-center justify-center mt-2">
@@ -102,7 +219,7 @@ export default function FileUploadStep({}: Props) {
                 <Upload className="h-8 w-8 text-black mb-3" />
                 <ul className="text-sm font-medium text-black ">
                   {uploadIdFiles.front ? (
-                    <li>{uploadIdFiles.front.name}</li>
+                    <li>{uploadIdFiles.front.name} </li>
                   ) : (
                     <li>Click to upload or drag and drop</li>
                   )}
@@ -112,6 +229,11 @@ export default function FileUploadStep({}: Props) {
                 </span>
               </div>
             </Label>
+            {errors.governmentFrontIdFiles && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.governmentFrontIdFiles.message?.toString()}
+              </p>
+            )}
           </div>
           <div className="flex flex-col gap-y-5 border-2 border-dashed  rounded-lg   border-gray-300 p-6 text-center hover:bg-gray-100 transition cursor-pointer">
             <Label
@@ -144,18 +266,14 @@ export default function FileUploadStep({}: Props) {
                 </span>
               </div>
             </Label>
+
+            {errors.governmentBackIdFiles && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.governmentBackIdFiles.message?.toString()}
+              </p>
+            )}
           </div>
         </div>
-        {errors.governmentFrontIdFiles && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.governmentFrontIdFiles.message?.toString()}
-          </p>
-        )}
-        {errors.governmentBackIdFiles && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.governmentBackIdFiles.message?.toString()}
-          </p>
-        )}
       </div>
 
       <div className="space-y-2">
@@ -179,10 +297,8 @@ export default function FileUploadStep({}: Props) {
             <div className="flex flex-col items-center gap-y-2">
               <Upload className="h-8 w-8 text-black mb-3" />
               <ul className="text-sm font-medium text-black ">
-                {uploadPhotoFiles.length > 0 ? (
-                  uploadPhotoFiles.map((file) => (
-                    <li key={file.name}>{file.name}</li>
-                  ))
+                {uploadPhotoFiles ? (
+                  <li>{uploadPhotoFiles.name}</li>
                 ) : (
                   <li>Click to upload or drag and drop</li>
                 )}
@@ -192,12 +308,12 @@ export default function FileUploadStep({}: Props) {
               </span>
             </div>
           </Label>
+          {errors.profilePhoto && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.profilePhoto.message?.toString()}
+            </p>
+          )}
         </div>
-        {errors.profilePhoto && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.profilePhoto.message?.toString()}
-          </p>
-        )}
       </div>
 
       <StepButtons isLoading={isLoading} />

@@ -4,9 +4,9 @@ import steps from "@/lib/signUpSteps";
 const useStep = () => {
   const path = usePathname();
 
-  const currentStep = steps.findIndex((step) =>
-    path.includes(step.id.toString())
-  );
+  const currentStep = steps.findIndex((step) => {
+    return path.includes(step.id.toString());
+  });
 
   return { currentStep };
 };

@@ -32,18 +32,18 @@ type Props = {};
 export default function KycVerificationStep({}: Props) {
   const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
-  const { data, setData } = useFormData();
+  const { data, setData, isHydrated } = useFormData();
 
   const {
     register,
-    watch,
     setValue,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<DetailsConfirmationFormValues>({
     defaultValues: {
       fullname: "",
-      dateOfBirth: new Date(),
+      dateOfBirth: "",
       fullAddress: "",
       country: "",
       city: "",
@@ -54,10 +54,14 @@ export default function KycVerificationStep({}: Props) {
   });
 
   useEffect(() => {
+    if (!isHydrated) return;
+
     if (!data.email || !data.password) {
       router.push("/signup/step-1");
     }
-  }, [data, router]);
+
+    reset(data);
+  }, [isHydrated, data, router]);
 
   const onSubmit = handleSubmit(
     async (values: DetailsConfirmationFormValues) => {
@@ -73,7 +77,10 @@ export default function KycVerificationStep({}: Props) {
       }
     }
   );
-  return (
+
+  return !isHydrated ? (
+    <p className="text-black text-3xl">Loading...</p>
+  ) : (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
         <label htmlFor="fullName" className="block text-sm font-medium mb-2">
@@ -111,7 +118,6 @@ export default function KycVerificationStep({}: Props) {
           </p>
         )}
       </div>
-
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="city" className="block text-sm font-medium mb-2">
@@ -150,7 +156,6 @@ export default function KycVerificationStep({}: Props) {
           )}
         </div>
       </div>
-
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="zipcode" className="block text-sm font-medium mb-2">
@@ -179,12 +184,11 @@ export default function KycVerificationStep({}: Props) {
             onValueChange={(value) => {
               setValue("country", value);
             }}
-            value={watch("country") || ""}
             {...register("country")}
             disabled={isLoading}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select a country" />
+              <SelectValue placeholder={data.country || "Select a country"} />
             </SelectTrigger>
             <SelectContent>
               {countries.map((country: CountryData) => {
@@ -206,6 +210,7 @@ export default function KycVerificationStep({}: Props) {
       </div>
 
       <div>
+        {" "}
         <Label htmlFor="dateOfBirth" className="block text-sm font-medium mb-2">
           Date of Birth
         </Label>
@@ -213,9 +218,7 @@ export default function KycVerificationStep({}: Props) {
           id="dateOfBirth"
           type="date"
           max={new Date().toISOString().split("T")[0]}
-          {...register("dateOfBirth", {
-            valueAsDate: true,
-          })}
+          {...register("dateOfBirth")}
           className="w-full p-2 border rounded-md"
           disabled={isLoading}
         />
@@ -225,7 +228,6 @@ export default function KycVerificationStep({}: Props) {
           </p>
         )}
       </div>
-
       <StepButtons isLoading={isLoading} />
     </form>
   );

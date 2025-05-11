@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormErrors, StepsProps } from "@/types/formTypes";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -14,21 +14,23 @@ type Props = {};
 
 export default function AccountCreationStep({}: Props) {
   const router = useRouter();
-  const { data, setData } = useFormData();
+  const { data, setData, isHydrated } = useFormData();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<SignUpFormValues>({
-    defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
+    defaultValues: data,
     resolver: zodResolver(signUpSchema),
   });
+
+  useEffect(() => {
+    if (!isHydrated) return;
+    reset(data);
+  }, [isHydrated, data, reset]);
 
   const onSubmit = handleSubmit(async (values: SignUpFormValues) => {
     setIsLoading(true);
@@ -43,7 +45,9 @@ export default function AccountCreationStep({}: Props) {
     }
   });
 
-  return (
+  return !isHydrated ? (
+    <div>Loading...</div>
+  ) : (
     <form className="space-y-4" onSubmit={onSubmit}>
       <div>
         <Label htmlFor="email" className="block text-sm font-medium mb-2">

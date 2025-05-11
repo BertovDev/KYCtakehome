@@ -28,9 +28,7 @@ export default function layout({ children }: Props) {
           <Card className="w-full shadow-lg border-border">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl mb-5 font-bold text-center">
-                {isComplete
-                  ? "Wallet Setup Complete"
-                  : "Food Competition Signup"}
+                Food Competition Signup
               </CardTitle>
 
               <StepsCounter isComplete={isComplete} />
