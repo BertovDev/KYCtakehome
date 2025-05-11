@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { SignUpFormValues, signUpSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { step1Endpoint } from "@/app/routes";
 
 export default function AccountCreationStep() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function AccountCreationStep() {
     } finally {
       setIsLoading(false);
       setData({ ...data, ...values });
-      router.push("/signup/step-2");
+      router.push(step1Endpoint);
     }
   });
 

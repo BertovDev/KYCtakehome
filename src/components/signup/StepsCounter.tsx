@@ -8,24 +8,7 @@ type Props = {
 };
 
 export default function StepsCounter({ isComplete }: Props) {
-  const [walletReady, setWalletReady] = useState(false);
-  const [checkStyle, setCheckStyle] = useState("");
   const { currentStep } = useStep();
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    if (currentStep === 4) {
-      timer = setTimeout(() => {
-        setWalletReady(true);
-        setCheckStyle(
-          "bg-green-200 border-green-200 text-green-600 transition-colors"
-        );
-      }, 3000);
-    }
-
-    return () => clearTimeout(timer);
-  }, [currentStep]);
 
   return (
     !isComplete && (
@@ -38,12 +21,10 @@ export default function StepsCounter({ isComplete }: Props) {
                   className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
                     index + 1 <= currentStep
                       ? "bg-primary border-primary text-primary-foreground"
-                      : checkStyle
+                      : ""
                   }`}
                 >
                   {index + 1 <= currentStep ? (
-                    <Check className="w-5 h-5" />
-                  ) : walletReady ? (
                     <Check className="w-5 h-5" />
                   ) : (
                     <span>{step.id}</span>

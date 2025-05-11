@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { ChevronRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import useStep from "@/hooks/useStep";
+import { signUpEndpoint } from "@/app/routes";
 
 type Props = {
   isLoading: boolean;
@@ -19,7 +20,8 @@ export default function StepButtons({ isLoading }: Props) {
       path.split("/").pop() || "",
       "step-" + step.toString()
     );
-    router.push(newUrl);
+
+    router.push(step === 0 ? signUpEndpoint : newUrl);
   };
 
   return (
@@ -28,7 +30,7 @@ export default function StepButtons({ isLoading }: Props) {
         type="button"
         variant="outline"
         onClick={handleBack}
-        disabled={currentStep === 0}
+        disabled={currentStep === -1}
       >
         Back
       </Button>

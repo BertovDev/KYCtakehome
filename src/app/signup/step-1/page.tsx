@@ -1,9 +1,9 @@
-import AccountCreationStep from "@/components/signup/steps/AccountCreationStep";
+import KycVerificationStep from "@/components/signup/steps/KycVerificationStep";
 
 export default function page() {
   return (
     <div>
-      <AccountCreationStep />
+      <KycVerificationStep />
     </div>
   );
 }

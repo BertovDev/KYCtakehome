@@ -20,6 +20,7 @@ import {
   detailsConfirmationSchema,
 } from "@/lib/validation";
 import StepButtons from "../StepButtons";
+import { signUpEndpoint, step2Endpoint } from "@/app/routes";
 
 type CountryData = {
   id: number;
@@ -55,7 +56,7 @@ export default function KycVerificationStep() {
     if (!isHydrated) return;
 
     if (!data.email || !data.password) {
-      router.push("/signup/step-1");
+      router.push(signUpEndpoint);
     }
 
     reset(data);
@@ -71,7 +72,7 @@ export default function KycVerificationStep() {
       } finally {
         setIsLoading(false);
         setData({ ...data, ...values });
-        router.push("/signup/step-3");
+        router.push(step2Endpoint);
       }
     }
   );
