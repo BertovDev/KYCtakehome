@@ -19,6 +19,8 @@ type Props = {
 export default function layout({ children }: Props) {
   const { currentStep } = useStep();
 
+  const isComplete = false;
+
   return (
     <SignupProvider>
       <div className="flex min-h-screen w-full justify-center ">
@@ -28,6 +30,8 @@ export default function layout({ children }: Props) {
               <CardTitle className="text-2xl mb-5 font-bold text-center">
                 Food Competition Signup
               </CardTitle>
+
+              <StepsCounter isComplete={isComplete} />
             </CardHeader>
 
             <CardContent className="pt-8">

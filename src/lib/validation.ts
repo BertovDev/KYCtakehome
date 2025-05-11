@@ -59,15 +59,14 @@ export const signUpSchema = z
 export const detailsConfirmationSchema = z.object({
   fullname: z.string().min(3, "Full name is required"),
   dateOfBirth: z
-    .date({
-      required_error: "Date of birth is required",
-      invalid_type_error: "That's not a valid date",
-    })
+    .string()
+    .date()
     .refine((date) => {
       if (!date) return false;
 
       const today = new Date();
-      const age = today.getFullYear() - date.getFullYear();
+      const birthDate = new Date(date);
+      const age = today.getFullYear() - birthDate.getFullYear();
       return age >= 18;
     }, "You must be at least 18 years old."),
   city: z.string().min(2, "City is required"),
@@ -86,27 +85,24 @@ export const detailsConfirmationSchema = z.object({
 
 export const kycSchema = z.object({
   governmentFrontIdFiles: z
-    .array(z.instanceof(File))
-    .min(1, "Upload front side of your ID.")
-    .max(1, "Max 1 image is allowed.")
-    .refine((files) => files?.length === 1, "One more image is required.")
+    .instanceof(File, { message: "Government front id is required" })
+    .refine((file) => file !== null, "Please upload a file")
     .refine(
-      (files) => ACCEPTED_FILE_TYPE.includes(files?.[0]?.type),
+      (files) => ACCEPTED_FILE_TYPE.includes(files?.type),
       ".jpg, .jpeg, .png and .pdf files are accepted."
     ),
   governmentBackIdFiles: z
-    .array(z.instanceof(File))
-    .min(1, "Upload back side of your ID.")
-    .max(1, "Max 1 image is allowed.")
+    .instanceof(File, { message: "Government back id is required" })
+    .refine((file) => file !== null, "Please upload a file")
     .refine(
-      (files) => ACCEPTED_FILE_TYPE.includes(files?.[0]?.type),
+      (files) => ACCEPTED_FILE_TYPE.includes(files?.type),
       ".jpg, .jpeg, .png and .pdf files are accepted."
     ),
   profilePhoto: z
-    .array(z.instanceof(File))
-    .min(1, "Upload a selfie photo.")
+    .instanceof(File, { message: "Profile photo is required" })
+    .refine((file) => file !== null, "Please upload a file")
     .refine(
-      (files) => ACCEPTED_FILE_TYPE.includes(files?.[0]?.type),
+      (files) => ACCEPTED_FILE_TYPE.includes(files?.type),
       ".jpg, .jpeg, .png and .pdf files are accepted."
     ),
 });

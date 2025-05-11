@@ -1,24 +1,35 @@
-import React from "react";
+import React, { useImperativeHandle } from "react";
 import { Button } from "../ui/button";
 import { ChevronRight } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import useStep from "@/hooks/useStep";
 
 type Props = {
   isLoading: boolean;
 };
 
 export default function StepButtons({ isLoading }: Props) {
-  const handleNext = async () => {
-    console.log("handleNext");
-  };
+  const { currentStep } = useStep();
+  const path = usePathname();
+  const router = useRouter();
 
   const handleBack = () => {
-    console.log("handleBack");
-    // setStep(currentStep - 1);
+    const step = currentStep;
+    const newUrl = path.replace(
+      path.split("/").pop() || "",
+      "step-" + step.toString()
+    );
+    router.push(newUrl);
   };
 
   return (
     <div className="flex justify-between mt-9">
-      <Button variant="outline" onClick={handleBack} disabled={isLoading}>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={handleBack}
+        disabled={currentStep === 0}
+      >
         Back
       </Button>
       <Button type="submit" disabled={isLoading}>

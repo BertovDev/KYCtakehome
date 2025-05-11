@@ -11,16 +11,20 @@ export type FormData = {
   state?: string;
   zipcode?: string;
   country?: string;
-  dateOfBirth?: Date;
+  dateOfBirth?: string;
 
   // Step 3 : File Upload
-  governmentFrontIdFiles?: File[] | null;
-  governmentBackIdFiles?: File[] | null;
-  profilePhoto?: File[] | null;
+  governmentFrontIdFiles?: File | null;
+  governmentBackIdFiles?: File | null;
+  profilePhoto?: File | null;
+  governmentFrontIdFilesString?: FileType | null;
+  governmentBackIdFilesString?: FileType | null;
+  profilePhotoString?: FileType | null;
+};
 
-  // Step 4: Wallet Setup
-  competitorCategory?: File;
-  termsAccepted?: boolean;
+export type FileType = {
+  name: string;
+  type: string;
 };
 
 export type FormErrors = Record<string, string>;

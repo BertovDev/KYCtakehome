@@ -17,30 +17,20 @@ export default function AccountCreationStep({}: Props) {
   const { data, setData, isHydrated } = useFormData();
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const [loadedValues, setLoadedValues] = useState<SignUpFormValues>({
-    email: data.email || "",
-    password: data.password || "",
-    confirmPassword: data.confirmPassword || "",
-  });
-
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<SignUpFormValues>({
-    defaultValues: loadedValues,
+    defaultValues: data,
     resolver: zodResolver(signUpSchema),
   });
 
   useEffect(() => {
     if (!isHydrated) return;
-
-    setLoadedValues({
-      email: data.email || "",
-      password: data.password || "",
-      confirmPassword: data.confirmPassword || "",
-    });
-  }, [isHydrated]);
+    reset(data);
+  }, [isHydrated, data, reset]);
 
   const onSubmit = handleSubmit(async (values: SignUpFormValues) => {
     setIsLoading(true);

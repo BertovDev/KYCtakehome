@@ -21,16 +21,12 @@ export default function DetailsConfirmationStep() {
     setIsLoading(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 200));
-    } catch (error) {
-      console.error("Error during form submission:", error);
-    } finally {
       setIsLoading(false);
       router.push("/signup/step-5");
+      console.log("submitData");
+    } catch (error) {
+      console.error("Error during form submission:", error);
     }
-  };
-
-  const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString();
   };
 
   return (
@@ -59,9 +55,7 @@ export default function DetailsConfirmationStep() {
             </div>
             <div className="flex justify-between py-1">
               <span className="text-sm font-medium">Date of Birth</span>
-              <span className="text-sm text-gray-600">
-                {data.dateOfBirth && formatDate(data.dateOfBirth)}
-              </span>
+              <span className="text-sm text-gray-600">{data.dateOfBirth}</span>
             </div>
             <div className="flex justify-between py-1">
               <span className="text-sm font-medium">Address</span>
