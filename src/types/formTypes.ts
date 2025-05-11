@@ -34,10 +34,3 @@ export type FileType = {
 };
 
 export type FormErrors = Record<string, string>;
-
-export type StepsProps = {
-  formData: FormData;
-  errors: FormErrors;
-  onChange: (field: keyof FormData, value: any) => void;
-  isLoading?: boolean;
-};

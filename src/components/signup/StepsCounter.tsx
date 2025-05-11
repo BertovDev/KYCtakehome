@@ -12,14 +12,6 @@ export default function StepsCounter({ isComplete }: Props) {
   const [checkStyle, setCheckStyle] = useState("");
   const { currentStep } = useStep();
 
-  const checkIcon = (index: number) => {
-    if (index + 1 <= currentStep) {
-      return "border-gray-300 text-gray-500";
-    } else {
-      return "bg-primary border-primary text-primary-foreground";
-    }
-  };
-
   useEffect(() => {
     let timer: NodeJS.Timeout;
 

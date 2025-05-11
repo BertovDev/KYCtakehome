@@ -12,8 +12,6 @@ import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { simulateBackendFilePersistance } from "@/lib/utils";
 
-type Props = {};
-
 type FileUploadId = {
   front: {
     name: string;
@@ -25,7 +23,7 @@ type FileUploadId = {
   } | null;
 };
 
-export default function FileUploadStep({}: Props) {
+export default function FileUploadStep() {
   const router = useRouter();
   const { data, setData, isHydrated } = useFormData();
 
@@ -225,7 +223,7 @@ export default function FileUploadStep({}: Props) {
                   )}
                 </ul>
                 <span className="text-xs text-black/60">
-                  Passport, Driver's License, or ID Card
+                  Passport, Drivers License, or ID Card
                 </span>
               </div>
             </Label>
@@ -262,7 +260,7 @@ export default function FileUploadStep({}: Props) {
                   )}
                 </ul>
                 <span className="text-xs text-black/60">
-                  Passport, Driver's License, or ID Card
+                  Passport, Drivers License, or ID Card
                 </span>
               </div>
             </Label>
