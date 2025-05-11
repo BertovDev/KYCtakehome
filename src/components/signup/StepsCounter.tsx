@@ -1,6 +1,6 @@
 import { Check } from "lucide-react";
 import useStep from "@/hooks/useStep";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import steps from "@/lib/signUpSteps";
 
 type Props = {
