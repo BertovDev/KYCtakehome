@@ -20,7 +20,6 @@ import {
   detailsConfirmationSchema,
 } from "@/lib/validation";
 import StepButtons from "../StepButtons";
-import { formatDateForInput } from "@/lib/utils";
 
 type CountryData = {
   id: number;

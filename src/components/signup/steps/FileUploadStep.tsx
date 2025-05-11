@@ -10,6 +10,7 @@ import { Upload } from "lucide-react";
 import StepButtons from "../StepButtons";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { simulateBackendFilePersistance } from "@/lib/utils";
 
 type Props = {};
 
@@ -84,12 +85,14 @@ export default function FileUploadStep({}: Props) {
       router.push("/signup/step-2");
     }
 
-    reset({
-      ...data,
-      governmentFrontIdFiles: data.governmentFrontIdFiles || undefined,
-      governmentBackIdFiles: data.governmentBackIdFiles || undefined,
-      profilePhoto: data.profilePhoto || undefined,
-    });
+    const files = simulateBackendFilePersistance(data);
+    if (files) {
+      reset({
+        governmentFrontIdFiles: files.front,
+        governmentBackIdFiles: files.back,
+        profilePhoto: files.photo,
+      });
+    }
 
     setUploadIdFiles({
       front: data.governmentFrontIdFilesString

@@ -17,14 +17,20 @@ export type FormData = {
   governmentFrontIdFiles?: File | null;
   governmentBackIdFiles?: File | null;
   profilePhoto?: File | null;
-  governmentFrontIdFilesString?: FileType | null;
-  governmentBackIdFilesString?: FileType | null;
-  profilePhotoString?: FileType | null;
+  governmentFrontIdFilesString?: FileInfo | null;
+  governmentBackIdFilesString?: FileInfo | null;
+  profilePhotoString?: FileInfo | null;
+};
+
+export type FileInfo = {
+  name: string;
+  type: string;
 };
 
 export type FileType = {
-  name: string;
-  type: string;
+  front: File | undefined;
+  back: File | undefined;
+  photo: File | undefined;
 };
 
 export type FormErrors = Record<string, string>;
