@@ -16,7 +16,7 @@ type Props = {
   children: ReactNode[];
 };
 
-export default function layout({ children }: Props) {
+export default function Layout({ children }: Props) {
   const { currentStep } = useStep();
 
   const isComplete = false;

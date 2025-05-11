@@ -1,13 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import SignupForm from "@/components/signup/SignupForm";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
-  const [isComplete, setIsComplete] = useState(false);
-
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <motion.div
@@ -25,9 +21,6 @@ export default function Home() {
               Create your account to start competing and tracking your progress
             </p>
           </CardHeader>
-          <CardContent className="p-6">
-            <SignupForm onComplete={() => setIsComplete(true)} />
-          </CardContent>
         </Card>
 
         <footer className="mt-8 text-center text-sm text-muted-foreground">

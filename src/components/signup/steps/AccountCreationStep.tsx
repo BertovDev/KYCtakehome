@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { FormErrors, StepsProps } from "@/types/formTypes";
+import React, { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useFormData } from "@/context/SignupStepContext";
@@ -10,9 +9,7 @@ import { SignUpFormValues, signUpSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 
-type Props = {};
-
-export default function AccountCreationStep({}: Props) {
+export default function AccountCreationStep() {
   const router = useRouter();
   const { data, setData, isHydrated } = useFormData();
   const [isLoading, setIsLoading] = React.useState(false);

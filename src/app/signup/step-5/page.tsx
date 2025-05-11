@@ -1,9 +1,6 @@
-import React from "react";
 import WalletInitialization from "@/components/signup/WalletInitialization";
 
-type Props = {};
-
-export default function page({}: Props) {
+export default function page() {
   return (
     <div>
       <WalletInitialization />

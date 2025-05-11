@@ -27,9 +27,7 @@ type CountryData = {
   label: string;
 };
 
-type Props = {};
-
-export default function KycVerificationStep({}: Props) {
+export default function KycVerificationStep() {
   const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
   const { data, setData, isHydrated } = useFormData();
