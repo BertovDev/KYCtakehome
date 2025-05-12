@@ -1,11 +1,6 @@
 import { z } from "zod";
 
-const ACCEPTED_FILE_TYPE = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "application/pdf",
-];
+const ACCEPTED_FILE_TYPE = ["image/jpeg", "image/jpg", "image/png"];
 
 const signUpErrorMessages = {
   minLengthErrorMessage: "Password must contain at least one uppercase letter",
@@ -84,26 +79,19 @@ export const detailsConfirmationSchema = z.object({
 });
 
 export const kycSchema = z.object({
-  governmentFrontIdFiles: z
+  governmentIdFile: z
     .instanceof(File, { message: "Government front id is required" })
     .refine((file) => file !== null, "Please upload a file")
     .refine(
       (files) => ACCEPTED_FILE_TYPE.includes(files?.type),
-      ".jpg, .jpeg, .png and .pdf files are accepted."
-    ),
-  governmentBackIdFiles: z
-    .instanceof(File, { message: "Government back id is required" })
-    .refine((file) => file !== null, "Please upload a file")
-    .refine(
-      (files) => ACCEPTED_FILE_TYPE.includes(files?.type),
-      ".jpg, .jpeg, .png and .pdf files are accepted."
+      ".jpg, .jpeg, .png  files are accepted."
     ),
   profilePhoto: z
     .instanceof(File, { message: "Profile photo is required" })
     .refine((file) => file !== null, "Please upload a file")
     .refine(
       (files) => ACCEPTED_FILE_TYPE.includes(files?.type),
-      ".jpg, .jpeg, .png and .pdf files are accepted."
+      ".jpg, .jpeg, .png  files are accepted."
     ),
 });
 
