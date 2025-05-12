@@ -12,17 +12,20 @@ export default function StepsCounter({ isComplete }: Props) {
 
   return (
     !isComplete && (
-      <div className="mt-6">
-        <div className="flex items-center justify-center">
+      <div className="">
+        <div className="flex items-center  justify-center gap-x-5">
           {steps.map((step, index) => (
             <React.Fragment key={step.id}>
               <div className="relative">
                 <div
                   className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
                     index + 1 <= currentStep
-                      ? "bg-primary border-primary text-primary-foreground"
-                      : ""
-                  }`}
+                      ? "bg-primary border-primary  text-primary-foreground"
+                      : "bg-gray-100"
+                  }
+                  
+                    ${currentStep === index ? "border-gray-500 border-2" : " border-none"}
+                  `}
                 >
                   {index + 1 <= currentStep ? (
                     <Check className="w-5 h-5" />
@@ -36,7 +39,7 @@ export default function StepsCounter({ isComplete }: Props) {
               </div>
               {index < steps.length - 1 && (
                 <div
-                  className={`w-16 h-0.5 mx-1 ${index + 1 <= currentStep ? "bg-primary" : "bg-gray-300"}`}
+                  className={`w-24 h-0.5 mx-1 ${index + 1 <= currentStep ? "bg-primary" : "bg-gray-300"}`}
                 />
               )}
             </React.Fragment>

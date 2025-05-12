@@ -14,11 +14,9 @@ export type FormData = {
   dateOfBirth?: string;
 
   // Step 3 : File Upload
-  governmentFrontIdFiles?: File | null;
-  governmentBackIdFiles?: File | null;
+  governmentIdFile?: File | null;
   profilePhoto?: File | null;
-  governmentFrontIdFilesString?: FileInfo | null;
-  governmentBackIdFilesString?: FileInfo | null;
+  governmentIdString?: FileInfo | null;
   profilePhotoString?: FileInfo | null;
 };
 
@@ -27,10 +25,9 @@ export type FileInfo = {
   type: string;
 };
 
-export type FileType = {
-  front: File | undefined;
-  back: File | undefined;
-  photo: File | undefined;
+export type FileUploadId = {
+  name: string;
+  type: string;
 };
 
 export type FormErrors = Record<string, string>;

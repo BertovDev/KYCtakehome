@@ -89,13 +89,13 @@ export default function DetailsConfirmationStep() {
             <div className="flex justify-between py-1">
               <span className="text-sm font-medium">Government ID</span>
               <div className="flex items-center gap-2">
-                {data.governmentFrontIdFiles ? (
+                {data.governmentIdString ? (
                   <Check className="h-4 w-4 text-green-500" />
                 ) : (
                   <X className="h-4 w-4 text-red-500" />
                 )}
                 <span className="text-sm text-gray-600">
-                  {data.governmentBackIdFiles ? "Uploaded" : "Not Uploaded"}
+                  {data.governmentIdString ? "Uploaded" : "Not Uploaded"}
                 </span>
               </div>
             </div>
