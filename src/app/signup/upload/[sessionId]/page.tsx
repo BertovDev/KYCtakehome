@@ -17,11 +17,17 @@ export default function UploadPage() {
     await fetch(`/api/upload`, {
       method: "POST",
       body: formData,
-    }).then((data) => {
-      if (data.status === 200) {
-        setIsComplete(true);
-      }
-    });
+    })
+      .then((data) => {
+        console.log(data.json());
+        if (data.status === 200) {
+          console.log("File uploaded successfully");
+          setIsComplete(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

@@ -20,7 +20,10 @@ export async function POST(request: NextRequest) {
   }
 
   if (!isSessionActive(sessionId)) {
-    return NextResponse.json({ message: "Session not found" }, { status: 404 });
+    return NextResponse.json(
+      { message: "Session is not active" },
+      { status: 404 }
+    );
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
@@ -32,6 +35,8 @@ export async function POST(request: NextRequest) {
 
     const newPath = path.join(dir, filename);
     await writeFile(newPath, buffer);
+
+    console.log("DIrectory: " + dir);
 
     disableSession(sessionId);
 
@@ -56,12 +61,19 @@ export async function GET(request: NextRequest) {
 
   const dir = path.join(process.cwd(), "public/uploads", sessionId);
 
+  console.log("DIrectory: " + dir);
+
   if (!fs.existsSync(dir)) {
-    return NextResponse.json({ message: "Session not found" }, { status: 404 });
+    return NextResponse.json(
+      { message: "Directory not found" },
+      { status: 404 }
+    );
   }
 
   const files = fs.readdirSync(dir);
   const stats = fs.statSync(path.join(dir, files[0]));
+
+  console.log("Files: " + files);
 
   const responseObj = {
     name: files[0],
