@@ -5,14 +5,12 @@ import { KycFormValues, kycSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useFormData } from "@/context/SignupStepContext";
-import StepButtons from "../../StepButtons";
 import { useEffect, useState } from "react";
 import {
   simulateBackendFilePersistance,
   simulateBackendFilePersistancePhoto,
 } from "@/lib/utils";
 import { step1Endpoint, step3Endpoint } from "@/app/routes";
-import { FileUploadId } from "@/types/formTypes";
 import IdVerificationStep from "./IdVerificationStep";
 import PhotoVerificationStep from "./PhotoVerificationStep";
 import ReviewFIlesStep from "./ReviewFIlesStep";
@@ -33,21 +31,6 @@ export default function FileUploadStep() {
     photoImage: null,
   });
 
-  const [uploadIdFiles, setUploadIdFiles] = useState<FileUploadId>({
-    name: data.governmentIdString?.name ?? "",
-    type: data.governmentIdString?.type ?? "",
-  });
-  const [uploadPhotoFiles, setUploadPhotoFiles] = useState<{
-    name: string;
-    type: string;
-  } | null>(
-    data.profilePhotoString
-      ? {
-          name: data.profilePhotoString.name,
-          type: data.profilePhotoString.type,
-        }
-      : null
-  );
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -91,19 +74,6 @@ export default function FileUploadStep() {
       });
     }
 
-    setUploadIdFiles({
-      name: data.governmentIdString?.name ?? "",
-      type: data.governmentIdString?.type ?? "",
-    });
-    setUploadPhotoFiles(
-      data.profilePhotoString
-        ? {
-            name: data.profilePhotoString.name,
-            type: data.profilePhotoString.type,
-          }
-        : null
-    );
-
     if (data.governmentIdFile && data.profilePhoto) {
       setCurrentStep("review");
     }
@@ -137,11 +107,6 @@ export default function FileUploadStep() {
   const handleIdUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadIdFiles((prev) => ({
-        ...prev,
-        name: file.name,
-        type: file.type,
-      }));
       setValue("governmentIdFile", file, {
         shouldValidate: true,
       });
@@ -151,15 +116,10 @@ export default function FileUploadStep() {
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadPhotoFiles({
-        name: file.name,
-        type: file.type,
-      });
       setValue("profilePhoto", file, {
         shouldValidate: true,
       });
     }
-    console.log(file);
   };
 
   return !isHydrated ? (

@@ -1,11 +1,6 @@
 "use client";
 import React, { ReactNode } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
+import { Card, CardContent } from "../../components/ui/card";
 import { motion } from "framer-motion";
 import { SignupProvider } from "@/context/SignupStepContext";
 

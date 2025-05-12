@@ -1,13 +1,7 @@
 import React from "react";
-import { FileUploadId } from "@/types/formTypes";
 import Image from "next/image";
-import { ArrowRight, CheckCircle, RefreshCw } from "lucide-react";
+import { ArrowRight, RefreshCw } from "lucide-react";
 import { Button } from "@radix-ui/themes";
-
-type FileUploadPhoto = {
-  name: string;
-  type: string;
-};
 
 type imagePreviewType = {
   idImage: string | null;
