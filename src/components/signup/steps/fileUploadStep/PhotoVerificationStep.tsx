@@ -31,13 +31,13 @@ export default function PhotoVerificationStep({
 }: Props) {
   const handleUpload = (file: File) => {
     const reader = new FileReader();
+    reader.readAsDataURL(file);
     reader.onload = () => {
       setImagePreview({
         ...imagePreview,
         photoImage: reader.result as string,
       });
     };
-    reader.readAsDataURL(file);
   };
 
   return (

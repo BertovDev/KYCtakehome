@@ -1,11 +1,11 @@
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Upload, Camera } from "lucide-react";
+import { Upload } from "lucide-react";
 
 type Props = {
-  handleUploadIdFile: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleUpload: (file: File) => void;
+  handleUploadIdFile: (file: File) => void;
+  handleUploadImagePreview: (file: File) => void;
   errors: {
     governmentIdFile?: {
       message?: string;
@@ -15,7 +15,7 @@ type Props = {
 
 export default function UploadFromDevice({
   handleUploadIdFile,
-  handleUpload,
+  handleUploadImagePreview,
   errors,
 }: Props) {
   return (
@@ -27,9 +27,9 @@ export default function UploadFromDevice({
           className="hidden"
           accept="image/png, image/jpeg, image/jpg"
           onChange={(e) => {
-            handleUploadIdFile(e);
+            handleUploadIdFile(e.target.files?.[0] as File);
             if (e.target.files?.[0]) {
-              handleUpload(e.target.files?.[0]);
+              handleUploadImagePreview(e.target.files?.[0]);
             }
           }}
         />

@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import useStep from "@/hooks/useStep";
+import useStep from "../../hooks/useStep";
 import React from "react";
 import steps from "@/lib/signUpSteps";
 

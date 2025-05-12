@@ -24,7 +24,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-    "formidable": "^3.5.4",
     "framer-motion": "^12.10.4",
     "lucide-react": "^0.508.0",
     "next": "15.3.2",

@@ -1,7 +1,5 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Upload, Camera, X, Check } from "lucide-react";
+import { X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import UploadFromDevice from "./uploadOptions/UploadFromDevice";
@@ -13,7 +11,7 @@ type imagePreviewType = {
 };
 
 type Props = {
-  handleUploadIdFile: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUploadIdFile: (file: File) => void;
   setCurrentStep: (step: "id" | "photo") => void;
   setImagePreview: (preview: imagePreviewType) => void;
   imagePreview: imagePreviewType;
@@ -31,15 +29,22 @@ export default function IdVerificationStep({
   setImagePreview,
   imagePreview,
 }: Props) {
-  const handleUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => {
+  const handleUploadImagePreview = (file: File, sessionId?: string) => {
+    if (sessionId !== undefined) {
       setImagePreview({
-        idImage: reader.result as string,
+        idImage: `/uploads/${sessionId}/` + file.name,
         photoImage: null,
       });
-    };
-    reader.readAsDataURL(file);
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImagePreview({
+          idImage: reader.result as string,
+          photoImage: null,
+        });
+      };
+    }
   };
 
   return (
@@ -91,11 +96,15 @@ export default function IdVerificationStep({
         ) : (
           <div className="flex flex-col gap-y-5">
             <div className="flex flex-row gap-x-5">
-              <UploadFromMobile errors={errors} />
+              <UploadFromMobile
+                handleUploadIdFile={handleUploadIdFile}
+                handleUploadImagePreview={handleUploadImagePreview}
+                errors={errors}
+              />
 
               <UploadFromDevice
                 handleUploadIdFile={handleUploadIdFile}
-                handleUpload={handleUpload}
+                handleUploadImagePreview={handleUploadImagePreview}
                 errors={errors}
               />
             </div>

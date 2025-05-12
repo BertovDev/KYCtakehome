@@ -7,25 +7,66 @@ import Image from "next/image";
 
 type Props = {
   setIsModalOpen: (open: boolean) => void;
+  handleUploadImagePreview: (file: File, sessionId?: string) => void;
+  handleUploadIdFile: (file: File) => void;
+  errors: {
+    governmentIdFile?: {
+      message?: string;
+    };
+  };
 };
 
-export default function ConnectMobileComponent({ setIsModalOpen }: Props) {
+export default function ConnectMobileComponent({
+  setIsModalOpen,
+  handleUploadIdFile,
+  handleUploadImagePreview,
+  errors,
+}: Props) {
   const [sessionId, setSessionId] = useState("");
   const [qr, setQr] = useState("");
-  const [files, setFiles] = useState<string[]>([]);
 
   useEffect(() => {
     const id = uuidv4();
     setSessionId(id);
 
     const generateQrCode = async () => {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/mobile/${sessionId}`;
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/signup/upload/${id}`;
       const qrCode = await qrcode.toDataURL(url);
+
       setQr(qrCode);
     };
 
     generateQrCode();
   }, []);
+
+  useEffect(() => {
+    if (!sessionId) return;
+    const interval = setInterval(async () => {
+      try {
+        const status = await fetch(
+          `/api/session/status?sessionId=${sessionId}`
+        );
+        const { active } = await status.json();
+
+        if (!active) {
+          const file = await fetch(`/api/upload?sessionId=${sessionId}`);
+          const fileData = await file.json();
+
+          if (fileData.name !== undefined) {
+            clearInterval(interval);
+            const newFile = new File([], fileData.name, {
+              type: fileData.type,
+            });
+            handleUploadImagePreview(newFile, sessionId);
+            handleUploadIdFile(newFile);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [sessionId]);
 
   return (
     <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center">

@@ -1,10 +1,11 @@
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Camera, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import ConnectMobileComponent from "./ConnectMobileComponent";
 
 type Props = {
+  handleUploadIdFile: (file: File) => void;
+  handleUploadImagePreview: (file: File, sessionId?: string) => void;
   errors: {
     governmentIdFile?: {
       message?: string;
@@ -12,7 +13,11 @@ type Props = {
   };
 };
 
-export default function UploadFromMobile({ errors }: Props) {
+export default function UploadFromMobile({
+  handleUploadIdFile,
+  handleUploadImagePreview,
+  errors,
+}: Props) {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   return (
@@ -52,7 +57,12 @@ export default function UploadFromMobile({ errors }: Props) {
       </div>
 
       {isModalOpen && (
-        <ConnectMobileComponent setIsModalOpen={setIsModalOpen} />
+        <ConnectMobileComponent
+          handleUploadIdFile={handleUploadIdFile}
+          handleUploadImagePreview={handleUploadImagePreview}
+          errors={errors}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
     </>
   );
