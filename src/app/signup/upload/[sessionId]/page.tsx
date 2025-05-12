@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import UploadFromDevice from "@/components/signup/steps/fileUploadStep/uploadOptions/UploadFromDevice";
 import { Check } from "lucide-react";
 
-export default function page() {
+export default function UploadPage() {
   const [isComplete, setIsComplete] = useState(false);
   const { sessionId } = useParams();
 

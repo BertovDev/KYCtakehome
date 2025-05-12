@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Error uploading file" },
+      { message: "Error uploading file", error: error },
       { status: 400 }
     );
   }

@@ -83,6 +83,11 @@ export default function ConnectMobileComponent({
 
         <h2>Scan the QR to open in your mobile app</h2>
         {qr && <Image src={qr} alt="QR Code" width={200} height={200} />}
+        {errors.governmentIdFile && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.governmentIdFile.message?.toString()}
+          </p>
+        )}
       </div>
     </div>
   );

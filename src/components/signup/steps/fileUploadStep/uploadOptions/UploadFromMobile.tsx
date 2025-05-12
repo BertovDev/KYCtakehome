@@ -1,6 +1,6 @@
 import React from "react";
 import { Label } from "@/components/ui/label";
-import { Camera, X } from "lucide-react";
+import { Camera } from "lucide-react";
 import ConnectMobileComponent from "./ConnectMobileComponent";
 
 type Props = {
