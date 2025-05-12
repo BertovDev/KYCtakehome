@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Upload, Camera, X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import UploadFromDevice from "./uploadOptions/UploadFromDevice";
+import UploadFromMobile from "./uploadOptions/UploadFromMobile";
 
 type imagePreviewType = {
   idImage: string | null;
@@ -89,78 +91,13 @@ export default function IdVerificationStep({
         ) : (
           <div className="flex flex-col gap-y-5">
             <div className="flex flex-row gap-x-5">
-              <div className="flex flex-col gap-y-5 border bg-gray-50  rounded-lg shadow-sm border-gray-200 py-5 px-10 text-center hover:bg-gray-100 transition cursor-pointer">
-                <Label
-                  htmlFor="governmentIdFileCamera"
-                  className="cursor-pointer"
-                >
-                  <div className="flex flex-col items-center gap-y-2 ">
-                    <div
-                      className="
-                rounded-full bg-blue-100 mb-1 p-1  flex items-center shadow-sm shadow-black/20 justify-center"
-                    >
-                      <Camera className="w-10 h-10 text-blue-400  p-2 " />
-                    </div>
-                    <Label
-                      htmlFor="governmentIdFileCamera"
-                      className="text-black text-lg font-medium "
-                    >
-                      Use Your Phone
-                    </Label>
-                    <ul className="text-sm font-medium text-gray-800 ">
-                      <li>Use your camera to take a photo of your ID</li>
-                    </ul>
-                  </div>
-                </Label>
+              <UploadFromMobile errors={errors} />
 
-                {errors.governmentIdFile && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.governmentIdFile.message?.toString()}
-                  </p>
-                )}
-              </div>
-              <div className="flex flex-col gap-y-5 border shadow-sm bg-gray-50 rounded-lg   border-gray-200 py-5 px-10 text-center hover:bg-gray-100 transition cursor-pointer">
-                <Input
-                  id="governmentIdFileUpload"
-                  type="file"
-                  className="hidden"
-                  accept="image/png, image/jpeg, image/jpg"
-                  onChange={(e) => {
-                    handleUploadIdFile(e);
-                    if (e.target.files?.[0]) {
-                      handleUpload(e.target.files?.[0]);
-                    }
-                  }}
-                />
-                <Label
-                  htmlFor="governmentIdFileUpload"
-                  className="cursor-pointer"
-                >
-                  <div className="flex flex-col items-center gap-y-2">
-                    <div
-                      className="
-                rounded-full bg-blue-100 mb-1 p-1 flex items-center shadow-sm shadow-black/20 justify-center"
-                    >
-                      <Upload className="w-10 h-10 text-blue-400 p-2 " />
-                    </div>
-                    <Label
-                      htmlFor="governmentIdFileUpload"
-                      className="text-black text-lg font-medium "
-                    >
-                      Upload a Photo
-                    </Label>
-                    <ul className="text-sm font-medium text-gray-800 ">
-                      <li>Select an existing file or upload a new one</li>
-                    </ul>
-                  </div>
-                </Label>
-
-                {errors.governmentIdFile && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.governmentIdFile.message?.toString()}
-                  </p>
-                )}
-              </div>
+              <UploadFromDevice
+                handleUploadIdFile={handleUploadIdFile}
+                handleUpload={handleUpload}
+                errors={errors}
+              />
             </div>
             <div className="mb-6 p-4 border border-gray-200 rounded-lg bg-blue-50">
               <h3 className="font-medium text-gray-800 mb-2">
