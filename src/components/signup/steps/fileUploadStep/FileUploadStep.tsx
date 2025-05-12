@@ -31,7 +31,7 @@ export default function FileUploadStep() {
     photoImage: null,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const {
     setValue,
@@ -80,13 +80,13 @@ export default function FileUploadStep() {
   }, [isHydrated, data, router]);
 
   const onSubmit = handleSubmit(async (values: KycFormValues) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 200));
     } catch (error) {
       console.error("Error during form submission:", error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
       setData({
         ...data,
         ...values,
