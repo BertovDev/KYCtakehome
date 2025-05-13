@@ -5,7 +5,7 @@ import { Upload } from "lucide-react";
 
 type Props = {
   handleUploadIdFile: (file: File) => void;
-  handleUploadImagePreview: (file: File) => void;
+  handleUploadImagePreview?: (file: File) => void;
   errors: {
     governmentIdFile?: {
       message?: string;
@@ -27,9 +27,11 @@ export default function UploadFromDevice({
           className="hidden"
           accept="image/png, image/jpeg, image/jpg"
           onChange={(e) => {
+            console.log(e.target.files?.[0]);
+
             handleUploadIdFile(e.target.files?.[0] as File);
-            if (e.target.files?.[0]) {
-              handleUploadImagePreview(e.target.files?.[0]);
+            if (handleUploadImagePreview) {
+              handleUploadImagePreview(e.target.files?.[0] as File);
             }
           }}
         />

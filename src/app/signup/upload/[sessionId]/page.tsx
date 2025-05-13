@@ -21,6 +21,7 @@ export default function UploadPage() {
       .then(async (res) => {
         const json = await res.json();
         console.log(json);
+        console.log(res);
 
         if (res.status === 200) {
           console.log("File uploaded successfully");
@@ -43,9 +44,9 @@ export default function UploadPage() {
         </div>
       ) : (
         <UploadFromDevice
-          handleUploadIdFile={(e) => handleUpload(e)}
+          handleUploadIdFile={handleUpload}
           errors={{}}
-          handleUploadImagePreview={(e) => console.log(e)}
+          // handleUploadImagePreview={handleUpload}
         />
       )}
     </>
