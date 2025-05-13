@@ -17,8 +17,11 @@ export default async function handler(
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" });
 
+  const tempDir = path.join(process.cwd(), "temp");
+  fs.mkdirSync(tempDir, { recursive: true });
+
   const form = formidable({
-    uploadDir: "public/uploads",
+    uploadDir: tempDir,
     keepExtensions: true,
     filename: (name, ext, part) => {
       const cleanName =
@@ -44,11 +47,10 @@ export default async function handler(
       return res.status(400).json({ error: "Missing sessionId or file" });
     }
 
-    // Optional: move file into session-specific subfolder
-    const sessionDir = path.join("public/uploads", sessionId);
-    fs.mkdirSync(sessionDir, { recursive: true });
+    const dir = path.join(process.cwd(), "public/uploads", sessionId as string);
+    fs.mkdirSync(dir, { recursive: true });
 
-    const targetPath = path.join(sessionDir, file.originalFilename as string);
+    const targetPath = path.join(dir, file.originalFilename as string);
     fs.renameSync(file.filepath, targetPath);
 
     disableSession(sessionId);
