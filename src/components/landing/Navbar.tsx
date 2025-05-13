@@ -48,7 +48,7 @@ export default function NavBar() {
                 <Menu className="h-5 w-5 text-gray-700" />
               </button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className="bg-white">
               <div className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => (
                   <Link

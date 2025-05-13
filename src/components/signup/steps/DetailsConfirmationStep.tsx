@@ -62,7 +62,7 @@ export default function DetailsConfirmationStep() {
               </div>
             </CardTitle>
           </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-x-5 gap-y-1 px-6 pb-5">
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-1 px-6 pb-5">
             <div className="flex justify-between gap-x-5 py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">
                 Full Name

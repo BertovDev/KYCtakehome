@@ -15,7 +15,7 @@ export default function SignUpModal({ setStart }: Props) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="absolute top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center"
+      className="absolute top-0 left-0 w-full h-full bg-black/50 flex md:flex-row flex-col items-center justify-center"
     >
       <div className="relative bg-gray-50 flex items-center flex-col gap-y-7   rounded-lg shadow-sm ">
         <div className="absolute top-5 right-5">
@@ -23,7 +23,7 @@ export default function SignUpModal({ setStart }: Props) {
             <X className="h-5 w-5 text-black" />
           </Button>
         </div>
-        <div className="flex flex-row items-center h-full">
+        <div className="flex md:flex-row flex-col items-center h-full">
           <Image
             src="/images/image2.png"
             alt="start"
