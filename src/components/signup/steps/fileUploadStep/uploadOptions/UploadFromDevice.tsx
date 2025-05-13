@@ -10,6 +10,9 @@ type Props = {
     governmentIdFile?: {
       message?: string;
     };
+    profilePhoto?: {
+      message?: string;
+    };
   };
 };
 

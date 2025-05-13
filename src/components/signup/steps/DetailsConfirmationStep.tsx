@@ -25,6 +25,7 @@ export default function DetailsConfirmationStep() {
       setIsLoading(false);
       router.push(walletInitEndpoint);
       console.log("submitData");
+      console.log(data);
     } catch (error) {
       console.error("Error during form submission:", error);
     }

@@ -112,8 +112,7 @@ export default function FileUploadStep() {
     }
   };
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handlePhotoUpload = (file: File) => {
     if (file) {
       setValue("profilePhoto", file, {
         shouldValidate: true,
