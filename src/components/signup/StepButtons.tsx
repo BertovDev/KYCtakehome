@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { ChevronRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import useStep from "@/hooks/useStep";
+import useStep from "../../hooks/useStep";
 import { signUpEndpoint } from "@/app/routes";
 
 type Props = {

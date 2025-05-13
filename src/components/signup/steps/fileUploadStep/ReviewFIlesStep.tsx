@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { ArrowRight, RefreshCw } from "lucide-react";
+import { ArrowRight, Check, RefreshCw } from "lucide-react";
 import { Button } from "@radix-ui/themes";
 
 type imagePreviewType = {
@@ -34,7 +34,10 @@ export default function ReviewFIlesStep({
 
         <div className="flex flex-col md:flex-row gap-4 mb-4">
           <div className="flex-1 p-4 border border-gray-200 rounded-lg bg-gray-50">
-            <h3 className="font-medium text-gray-800 mb-2">ID Document</h3>
+            <div className="flex items-center justify-center mb-2">
+              <h3 className="font-medium text-gray-800 ">ID Document</h3>
+              <Check className="w-5 h-5 ml-2 text-green-600" />
+            </div>
             {imagePreview.idImage && (
               <div className="relative w-full h-32 bg-gray-200 rounded-lg overflow-hidden">
                 <Image
@@ -49,7 +52,10 @@ export default function ReviewFIlesStep({
           </div>
 
           <div className="flex-1 p-4 border border-gray-200 rounded-lg bg-gray-50">
-            <h3 className="font-medium text-gray-800 mb-2">Selfie</h3>
+            <div className="flex items-center justify-center mb-2">
+              <h3 className="font-medium text-gray-800 ">Selfie</h3>
+              <Check className="w-5 h-5 ml-2 text-green-600" />
+            </div>
             {imagePreview.photoImage && (
               <div className="relative w-full h-32 bg-gray-200 rounded-lg overflow-hidden">
                 <Image

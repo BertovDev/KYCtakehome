@@ -1,9 +1,9 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Upload, Camera, X, Check } from "lucide-react";
+import { X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import UploadFromMobile from "./uploadOptions/UploadFromMobile";
+import UploadFromDevice from "./uploadOptions/UploadFromDevice";
 
 type ImagePreviewType = {
   idImage: string | null;
@@ -11,7 +11,7 @@ type ImagePreviewType = {
 };
 
 type Props = {
-  handlePhotoUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handlePhotoUpload: (file: File) => void;
   setCurrentStep: (step: "id" | "photo" | "review") => void;
   setImagePreview: (preview: ImagePreviewType) => void;
   imagePreview: ImagePreviewType;
@@ -29,15 +29,22 @@ export default function PhotoVerificationStep({
   imagePreview,
   errors,
 }: Props) {
-  const handleUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => {
+  const handleUploadImagePreview = (file: File, sessionId?: string) => {
+    if (sessionId !== undefined) {
       setImagePreview({
         ...imagePreview,
-        photoImage: reader.result as string,
+        photoImage: "/profilePlaceholder.png",
       });
-    };
-    reader.readAsDataURL(file);
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImagePreview({
+          ...imagePreview,
+          photoImage: reader.result as string,
+        });
+      };
+    }
   };
 
   return (
@@ -87,72 +94,17 @@ export default function PhotoVerificationStep({
         ) : (
           <div className="flex flex-col gap-y-7">
             <div className="flex flex-row gap-x-5">
-              <div className="flex flex-col gap-y-5 border bg-gray-50  rounded-lg shadow-sm border-gray-200 py-5 px-10 text-center hover:bg-gray-100 transition cursor-pointer">
-                <Label htmlFor="profilePhotoCamera" className="cursor-pointer">
-                  <div className="flex flex-col items-center gap-y-2 ">
-                    <div
-                      className="
-                rounded-full bg-blue-100 mb-1 p-1  flex items-center shadow-sm shadow-black/20 justify-center"
-                    >
-                      <Camera className="w-10 h-10 text-blue-400  p-2 " />
-                    </div>
-                    <Label
-                      htmlFor="profilePhotoCamera"
-                      className="text-black text-lg font-medium "
-                    >
-                      Use Your Phone
-                    </Label>
-                    <ul className="text-sm font-medium text-gray-800 ">
-                      <li>Use your camera to take a photo of your ID</li>
-                    </ul>
-                  </div>
-                </Label>
+              <UploadFromMobile
+                handleUploadIdFile={handlePhotoUpload}
+                handleUploadImagePreview={handleUploadImagePreview}
+                errors={errors}
+              />
 
-                {errors.profilePhoto && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.profilePhoto.message?.toString()}
-                  </p>
-                )}
-              </div>
-              <div className="flex flex-col gap-y-5 border shadow-sm bg-gray-50    rounded-lg   border-gray-200 py-5 px-10 text-center hover:bg-gray-100 transition cursor-pointer">
-                <Input
-                  id="profilePhotoUpload"
-                  type="file"
-                  className="hidden"
-                  accept="image/png, image/jpeg, image/jpg "
-                  onChange={(e) => {
-                    handlePhotoUpload(e);
-                    if (e.target.files?.[0]) {
-                      handleUpload(e.target.files?.[0]);
-                    }
-                  }}
-                />
-                <Label htmlFor="profilePhotoUpload" className="cursor-pointer">
-                  <div className="flex flex-col items-center gap-y-2">
-                    <div
-                      className="
-                rounded-full bg-blue-100 mb-1 p-1 flex items-center shadow-sm shadow-black/20 justify-center"
-                    >
-                      <Upload className="w-10 h-10 text-blue-400 p-2 " />
-                    </div>
-                    <Label
-                      htmlFor="profilePhotoUpload"
-                      className="text-black text-lg font-medium "
-                    >
-                      Upload a Photo
-                    </Label>
-                    <ul className="text-sm font-medium text-gray-800 ">
-                      <li>Select an existing file or upload a new one</li>
-                    </ul>
-                  </div>
-                </Label>
-
-                {errors.profilePhoto && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.profilePhoto.message?.toString()}
-                  </p>
-                )}
-              </div>
+              <UploadFromDevice
+                handleUploadIdFile={handlePhotoUpload}
+                handleUploadImagePreview={handleUploadImagePreview}
+                errors={errors}
+              />
             </div>
 
             <div className="mb-6 p-4 border border-gray-200 rounded-lg bg-blue-50">

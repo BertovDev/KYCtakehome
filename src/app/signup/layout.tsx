@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { SignupProvider } from "@/context/SignupStepContext";
 
 import StepsCounter from "@/components/signup/StepsCounter";
-import useStep from "@/hooks/useStep";
+import useStep from "../../hooks/useStep";
 
 import "../globals.css";
 
