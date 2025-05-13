@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import UploadFromDevice from "@/components/signup/steps/fileUploadStep/uploadOptions/UploadFromDevice";
-import { Check } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 export default function UploadPage() {
   const [isComplete, setIsComplete] = useState(false);
@@ -31,10 +31,10 @@ export default function UploadPage() {
 
   return (
     <>
-      {isComplete ? (
-        <div className="flex flex-row items-center justify-center">
-          <h3 className="text-gray-50 text-2xl">File uploaded successfully</h3>
-          <Check className="w-10 h-10 text-green-400 p-2 " />
+      {!isComplete ? (
+        <div className="flex flex-col py-5 items-center justify-center gap-y-5 border-9 ">
+          <h3 className="text-black text-2xl">File uploaded successfully</h3>
+          <CheckCircle className="w-52 h-52 text-blue-400 p-2 " />
         </div>
       ) : (
         <UploadFromDevice

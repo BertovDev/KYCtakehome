@@ -52,9 +52,9 @@ export default function IdVerificationStep({
   };
 
   return (
-    <div className="space-y-2 flex flex-col justify-center gap-y-2 items-start  file-upload">
-      <div className="flex flex-col gap-y-1 ml-2">
-        <h2 className="text-xl font-bold ">ID verification </h2>
+    <div className="space-y-5 flex flex-col justify-center gap-y-2 items-center pt-8 pb-5  file-upload">
+      <div className="flex  items-center  flex-col gap-y-1 ml-2 ">
+        <h2 className="text-2xl font-bold ">ID verification </h2>
 
         <span className="text-gray-600 text-sm">
           Passport, Drivers License, or ID Card

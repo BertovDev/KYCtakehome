@@ -32,8 +32,8 @@ export default function DetailsConfirmationStep() {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitData)} className="space-y-6">
-      <div className="grid gap-4">
+    <form onSubmit={handleSubmit(submitData)} className="space-y-8 p-5 my-2">
+      <div className="grid gap-6">
         <Card className=" bg-gray-50">
           <CardHeader>
             <CardTitle className="text-lg">
@@ -43,8 +43,8 @@ export default function DetailsConfirmationStep() {
               </div>
             </CardTitle>
           </CardHeader>
-          <CardContent className="start gap-x-5">
-            <div className="flex justify-between py-3 border-b border-gray-200 rounded-md">
+          <CardContent className="start gap-x-5 px-6 pb-5">
+            <div className="flex justify-between py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">Email</span>
               <span className="text-sm text-black font-medium">
                 {data.email}
@@ -62,8 +62,8 @@ export default function DetailsConfirmationStep() {
               </div>
             </CardTitle>
           </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-x-5 gap-y-1">
-            <div className="flex justify-between gap-x-5 py-3 border-b border-gray-200 rounded-md">
+          <CardContent className="grid grid-cols-2 gap-x-5 gap-y-1 px-6 pb-5">
+            <div className="flex justify-between gap-x-5 py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">
                 Full Name
               </span>
@@ -71,7 +71,7 @@ export default function DetailsConfirmationStep() {
                 {data.fullname}
               </span>
             </div>
-            <div className="flex justify-between gap-x-5 py-3 border-b border-gray-200 rounded-md ">
+            <div className="flex justify-between gap-x-5 py-2 border-b border-gray-200 rounded-md ">
               <span className="text-sm font-medium text-gray-600">
                 Date of Birth
               </span>
@@ -79,25 +79,25 @@ export default function DetailsConfirmationStep() {
                 {data.dateOfBirth}
               </span>
             </div>
-            <div className="flex justify-between gap-x-5 py-3 border-b border-gray-200 rounded-md">
+            <div className="flex justify-between gap-x-5 py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">Address</span>
               <span className="text-sm text-black font-medium">
                 {data.fullAddress}
               </span>
             </div>
-            <div className="flex justify-between   gap-x-5 py-3 border-b border-gray-200 rounded-md">
+            <div className="flex justify-between   gap-x-5 py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">City</span>
               <span className="text-sm text-black font-medium">
                 {data.city}
               </span>
             </div>
-            <div className="flex justify-between   gap-x-5 py-3 border-b border-gray-200 rounded-md">
+            <div className="flex justify-between   gap-x-5 py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">State</span>
               <span className="text-sm text-black font-medium">
                 {data.state}
               </span>
             </div>
-            <div className="flex justify-between   gap-x-5 py-3 border-b border-gray-200 rounded-md">
+            <div className="flex justify-between   gap-x-5 py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">
                 ZIP Code
               </span>
@@ -105,7 +105,7 @@ export default function DetailsConfirmationStep() {
                 {data.zipcode}
               </span>
             </div>
-            <div className="flex justify-between gap-x-5 py-3 border-b border-gray-200 rounded-md ">
+            <div className="flex justify-between gap-x-5 py-2 border-b border-gray-200 rounded-md ">
               <span className="text-sm font-medium text-gray-600">Country</span>
               <span className="text-sm text-black font-medium">
                 {data.country}
@@ -114,7 +114,7 @@ export default function DetailsConfirmationStep() {
           </CardContent>
         </Card>
 
-        <Card className=" bg-gray-50">
+        <Card className=" bg-gray-50 pb-5">
           <CardHeader>
             <CardTitle className="text-lg">
               <div className="flex items-center gap-x-2">
@@ -123,8 +123,8 @@ export default function DetailsConfirmationStep() {
               </div>
             </CardTitle>
           </CardHeader>
-          <CardContent className="start gap-x-5 ">
-            <div className="flex justify-between py-3 border-b border-gray-200 rounded-md">
+          <CardContent className="start gap-x-5 px-6 ">
+            <div className="flex justify-between py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">
                 Government ID
               </span>
@@ -139,7 +139,7 @@ export default function DetailsConfirmationStep() {
                 </span>
               </div>
             </div>
-            <div className="flex justify-between py-3 border-b border-gray-200 rounded-md">
+            <div className="flex justify-between py-2 border-b border-gray-200 rounded-md">
               <span className="text-sm font-medium text-gray-600">
                 Profile Photo
               </span>

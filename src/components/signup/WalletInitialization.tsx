@@ -38,14 +38,14 @@ const WalletInitialization = () => {
   }, [progress, isComplete]);
 
   return (
-    <div className="w-full max-w-md  mx-auto  bg-background p-4">
-      <Card className="border shadow-md">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-center text-2xl font-bold">
+    <div className="w-full max-w-md  rounded-xl   mx-auto  bg-background p-5">
+      <div className=" p-4 space-y-6">
+        <div className="pb-4">
+          <CardTitle className="text-center text-3xl font-semibol">
             {isComplete ? "Wallet Ready!" : "Checking the information..."}
           </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
+        </div>
+        <div className="space-y-6">
           {!isComplete ? (
             <>
               <div className="flex justify-center mb-6">
@@ -143,8 +143,8 @@ const WalletInitialization = () => {
               </div>
             </>
           )}
-        </CardContent>
-        <CardFooter>
+        </div>
+        <div>
           <Button
             onClick={() => {
               router.push("/");
@@ -155,8 +155,8 @@ const WalletInitialization = () => {
             {isComplete ? "Start Trading" : "Setting up..."}
             {isComplete && <ArrowRight className="ml-2 h-4 w-4" />}
           </Button>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
