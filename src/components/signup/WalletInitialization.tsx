@@ -4,19 +4,16 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Check, Wallet, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { useRouter } from "next/navigation";
 
 const WalletInitialization = () => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     // Simulate wallet initialization process
@@ -35,23 +32,23 @@ const WalletInitialization = () => {
   }, [progress, isComplete]);
 
   return (
-    <div className="w-full max-w-md mx-auto bg-background p-4">
-      <Card className="border shadow-md">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-center text-2xl font-bold">
-            {isComplete ? "Wallet Ready!" : "Setting Up Your Wallet"}
+    <div className="w-full max-w-md  rounded-xl   mx-auto  bg-background p-5">
+      <div className=" p-4 space-y-6">
+        <div className="pb-4">
+          <CardTitle className="text-center text-3xl font-semibol">
+            {isComplete ? "Wallet Ready!" : "Checking the information..."}
           </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
+        </div>
+        <div className="space-y-6">
           {!isComplete ? (
             <>
               <div className="flex justify-center mb-6">
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="p-4 rounded-full bg-primary/10"
+                  className="p-4 rounded-full bg-gray-100"
                 >
-                  <Wallet className="h-12 w-12 text-primary" />
+                  <Wallet className="h-12 w-12 text-gray-500" />
                 </motion.div>
               </div>
               <div className="space-y-2">
@@ -62,7 +59,7 @@ const WalletInitialization = () => {
                 <Progress value={progress} className="h-2" />
               </div>
               <div className="text-center text-sm text-muted-foreground">
-                Please wait while we set up your digital wallet...
+                Our team is checking the information you provided...
               </div>
             </>
           ) : (
@@ -117,8 +114,7 @@ const WalletInitialization = () => {
               )}
 
               <div className="space-y-4 text-center">
-                <h3 className="text-xl font-medium">Welcome!</h3>
-                <div className="p-4 bg-primary/5 rounded-lg">
+                <div className="p-4 bg-blue-50 rounded-xl">
                   <p className="text-sm text-muted-foreground mb-1">
                     Starting Balance
                   </p>
@@ -126,26 +122,35 @@ const WalletInitialization = () => {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="text-3xl font-bold text-primary"
+                    className="text-3xl flex items-center justify-center gap-x-2 font-bold text-blue-600"
                   >
-                    100 <span className="text-base font-normal">points</span>
+                    100{" "}
+                    <span className="text-base font-bold  text-blue-600">
+                      Points
+                    </span>
                   </motion.p>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Your digital wallet has been successfully created. You can now
-                  participate in food competitions and track your progress!
+                  Your digital wallet has been successfully created. Now you can
+                  start tradig your vinils with full security! Enjoy!
                 </p>
               </div>
             </>
           )}
-        </CardContent>
-        <CardFooter>
-          <Button onClick={() => {}} disabled={!isComplete} className="w-full">
-            {isComplete ? "Continue to Dashboard" : "Setting up..."}
+        </div>
+        <div>
+          <Button
+            onClick={() => {
+              router.push("/");
+            }}
+            disabled={!isComplete}
+            className="w-full flex items-center justify-center"
+          >
+            {isComplete ? "Start Trading" : "Setting up..."}
             {isComplete && <ArrowRight className="ml-2 h-4 w-4" />}
           </Button>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
