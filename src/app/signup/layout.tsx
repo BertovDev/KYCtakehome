@@ -14,7 +14,10 @@ type Props = {
 };
 
 export default function Layout({ children }: Props) {
-  const { currentStep, isComplete } = useStep();
+  const { currentStep, isComplete } = useStep() as {
+    currentStep: number;
+    isComplete: boolean;
+  };
 
   return (
     <SignupProvider>

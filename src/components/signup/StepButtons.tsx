@@ -10,7 +10,10 @@ type Props = {
 };
 
 export default function StepButtons({ isLoading }: Props) {
-  const { currentStep } = useStep();
+  const { currentStep } = useStep() as {
+    currentStep: number;
+    isComplete: boolean;
+  };
   const path = usePathname();
   const router = useRouter();
 

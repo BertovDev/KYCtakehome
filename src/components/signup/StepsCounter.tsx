@@ -8,7 +8,10 @@ type Props = {
 };
 
 export default function StepsCounter({ isComplete }: Props) {
-  const { currentStep } = useStep();
+  const { currentStep } = useStep() as {
+    currentStep: number;
+    isComplete: boolean;
+  };
 
   return (
     <div className="">
