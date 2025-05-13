@@ -15,6 +15,7 @@ export default function StepButtons({ isLoading }: Props) {
   const router = useRouter();
 
   const handleBack = () => {
+    if (!path) return;
     const step = currentStep;
     const newUrl = path.replace(
       path.split("/").pop() || "",

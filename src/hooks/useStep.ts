@@ -3,6 +3,7 @@ import steps from "@/lib/signUpSteps";
 
 const useStep = () => {
   const path = usePathname();
+  if (!path) return;
   const isComplete = path.includes("wallet-init");
 
   const currentStep = steps.findIndex((step) => {
