@@ -1,7 +1,5 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Upload, Camera, X, Check } from "lucide-react";
+import { X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import UploadFromMobile from "./uploadOptions/UploadFromMobile";
@@ -31,17 +29,6 @@ export default function PhotoVerificationStep({
   imagePreview,
   errors,
 }: Props) {
-  const handleUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setImagePreview({
-        ...imagePreview,
-        photoImage: reader.result as string,
-      });
-    };
-  };
-
   const handleUploadImagePreview = (file: File, sessionId?: string) => {
     if (sessionId !== undefined) {
       setImagePreview({

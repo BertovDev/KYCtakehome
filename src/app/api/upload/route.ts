@@ -1,7 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-import { writeFile } from "fs/promises";
-import fs from "fs";
 import { disableSession, isSessionActive } from "@/lib/sessionStore";
 
 export const config = {
