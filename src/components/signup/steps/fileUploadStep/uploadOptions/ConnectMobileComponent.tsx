@@ -7,7 +7,7 @@ import Image from "next/image";
 
 type Props = {
   setIsModalOpen: (open: boolean) => void;
-  handleUploadImagePreview?: (file: File, sessionId?: string) => void;
+  handleUploadImagePreview: (file: File, sessionId?: string) => void;
   handleUploadIdFile: (file: File) => void;
   errors: {
     governmentIdFile?: {
@@ -46,12 +46,15 @@ export default function ConnectMobileComponent({
         const status = await fetch(
           `/api/session/status?sessionId=${sessionId}`
         );
-        const { active } = await status.json();
+        const { active, filename } = await status.json();
 
-        console.log("Session is " + active);
+        console.log("Session is " + active + " " + filename);
 
         if (!active) {
-          const file = await fetch(`/api/upload?sessionId=${sessionId}`);
+          console.log(filename);
+          const file = await fetch(
+            `/api/upload?sessionId=${sessionId}&filename=${filename}`
+          );
           const fileData = await file.json();
 
           console.log(fileData);
@@ -61,9 +64,9 @@ export default function ConnectMobileComponent({
             const newFile = new File([], fileData.name, {
               type: fileData.type,
             });
-            if (handleUploadImagePreview) {
-              handleUploadImagePreview(newFile, sessionId);
-            }
+            // if (handleUploadImagePreview) {
+            handleUploadImagePreview(newFile, sessionId);
+            // }
             handleUploadIdFile(newFile);
           }
         }

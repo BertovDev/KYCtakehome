@@ -32,7 +32,7 @@ export default function IdVerificationStep({
   const handleUploadImagePreview = (file: File, sessionId?: string) => {
     if (sessionId !== undefined) {
       setImagePreview({
-        idImage: `/uploads/${sessionId}/` + file.name,
+        idImage: `uploads/test.png`,
         photoImage: null,
       });
     } else {
@@ -62,7 +62,7 @@ export default function IdVerificationStep({
             <div className="relative max-w-md">
               <Image
                 className="w-full object-contain border-blue-500 border-4 rounded-xl p-0.5"
-                src={imagePreview.idImage}
+                src={"/uploads/test.png"}
                 alt="Image Preview"
                 width={200}
                 height={200}
@@ -98,7 +98,7 @@ export default function IdVerificationStep({
             <div className="flex flex-row gap-x-5">
               <UploadFromMobile
                 handleUploadIdFile={handleUploadIdFile}
-                // handleUploadImagePreview={handleUploadImagePreview}
+                handleUploadImagePreview={handleUploadImagePreview}
                 errors={errors}
               />
 

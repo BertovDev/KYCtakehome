@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
 import fs from "fs";
+import { disableSession } from "@/lib/sessionStore";
 
 export const config = {
   api: {
@@ -17,10 +18,11 @@ export async function POST(request: Request) {
   const buffer = Buffer.from(await file.arrayBuffer());
   const filename = sessionId + "_" + file.name.replaceAll(" ", "_");
 
+  console.log(filename);
+
   try {
-    await writeFile(path.join("/tmp/" + filename), buffer).then((data) => {
-      console.log(data);
-    });
+    await writeFile(path.join("/tmp/" + filename), buffer);
+    disableSession(sessionId, filename);
     return NextResponse.json(
       { message: "File uploaded successfully", filename },
       { status: 200 }
@@ -60,10 +62,15 @@ export async function POST(request: Request) {
 
 export async function GET(request: NextRequest) {
   const sessionId = request.nextUrl.searchParams.get("sessionId");
+  const filename = request.nextUrl.searchParams.get("filename");
 
-  if (!sessionId) {
+  console.log(sessionId, filename);
+
+  if (!sessionId || !filename) {
     return NextResponse.json({ message: "Session not found" }, { status: 404 });
   }
+
+  console.log(path.join("/tmp/"));
 
   const dir = path.join("/tmp/");
 
@@ -77,15 +84,41 @@ export async function GET(request: NextRequest) {
   }
 
   const files = fs.readdirSync(dir);
-  const stats = fs.statSync(path.join(dir, files[0]));
+  let foundFile = "";
+  // let file = "";
 
-  console.log("Files: " + files);
+  files.forEach((file) => {
+    if (file === filename || file.includes(sessionId)) {
+      console.log(" FILE FOUND " + file);
+      foundFile = file;
+    }
+  });
+
+  console.log(foundFile);
+
+  // const stats = fs.statSync(path.join(dir, files[0]));
+
+  // console.log("Files: " + files);
+
+  // const responseObj = {
+  //   name: file,
+  //   type: "image/" + file.split(".")[1],
+  //   size: fs.statSync(path.join(dir, file)).size,
+  //   sessionId: sessionId,
+  // };
+
+  // console.log(responseObj);
+
+  // return NextResponse.json(responseObj, { status: 200 });
 
   const responseObj = {
-    name: files[0],
-    type: "image/" + files[0].split(".")[1],
-    size: stats.size,
+    name: foundFile,
+    type: "image/" + foundFile.split(".")[1],
+    size: fs.statSync(path.join(dir, foundFile)).size,
     sessionId: sessionId,
   };
-  return NextResponse.json(responseObj, { status: 200 });
+
+  return foundFile
+    ? NextResponse.json(responseObj, { status: 200 })
+    : NextResponse.json({ message: "File not found" }, { status: 404 });
 }

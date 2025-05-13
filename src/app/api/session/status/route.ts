@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isSessionActive } from "@/lib/sessionStore";
+import { sessions } from "@/lib/sessionStore";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -9,5 +10,9 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "No sessionId" }, { status: 400 });
 
   const active = isSessionActive(sessionId);
-  return NextResponse.json({ active });
+  return NextResponse.json({
+    active,
+    sessionId,
+    filename: sessions[sessionId]?.filename,
+  });
 }
