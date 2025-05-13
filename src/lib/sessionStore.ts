@@ -6,6 +6,7 @@ export function isSessionActive(id: string): boolean {
 }
 
 export function disableSession(id: string) {
+  console.log("Disabling session", id);
   sessions[id] = { active: false };
 }
 

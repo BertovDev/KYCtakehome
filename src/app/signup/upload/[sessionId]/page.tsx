@@ -6,6 +6,7 @@ import { Check } from "lucide-react";
 
 export default function UploadPage() {
   const [isComplete, setIsComplete] = useState(false);
+  const [erorrs, setErrors] = useState({});
   const { sessionId } = useParams();
 
   const handleUpload = async (file: File) => {
@@ -17,11 +18,15 @@ export default function UploadPage() {
     await fetch(`/api/upload`, {
       method: "POST",
       body: formData,
-    }).then((data) => {
-      if (data.status === 200) {
-        setIsComplete(true);
-      }
-    });
+    })
+      .then((data) => {
+        if (data.status === 200) {
+          setIsComplete(true);
+        }
+      })
+      .catch((err) => {
+        setErrors(err.message);
+      });
   };
 
   return (
@@ -34,8 +39,7 @@ export default function UploadPage() {
       ) : (
         <UploadFromDevice
           handleUploadIdFile={(e) => handleUpload(e)}
-          errors={{}}
-          handleUploadImagePreview={(e) => handleUpload(e)}
+          errors={erorrs}
         />
       )}
     </>
