@@ -50,18 +50,18 @@ export default function AccountCreationStep() {
     <div className="flex flex-col lg:flex-row w-full justify-around rounded-lg">
       <div className=" w-full flex  items-center justify-center border-l border-r-0 rounded-l-lg">
         <Image
-          src="/images/signup.jpg"
+          src="/images/image2.png"
           alt="start"
           width={500}
           height={300}
-          className="w-full h-full object-cover rounded-l-lg"
+          className="w-full h-full object-cover rounded-l-lg "
         />
       </div>
-      <form className="space-y-4 p-5 mx-2 w-full lg:w-3/4" onSubmit={onSubmit}>
+      <form className="space-y-4 p-5 mx-2 w-full lg:w-3/4 " onSubmit={onSubmit}>
         <div className="w-full flex items-start mb-6 ">
           <h1 className="text-2xl font-bold">Sign Up to get started</h1>
         </div>
-        <div className="flex flex-col justify-between space-y-10">
+        <div className="flex flex-col  justify-center  space-y-10">
           <div className="space-y-4">
             <div>
               <Label htmlFor="email" className="block text-sm font-medium mb-2">
