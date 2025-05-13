@@ -80,7 +80,7 @@ export default function KycVerificationStep() {
   return !isHydrated ? (
     <p className="text-black text-3xl">Loading...</p>
   ) : (
-    <div className="flex flex-col w-full   justify-around rounded-lg p-8 space-y-5">
+    <div className="flex flex-col w-full px-36   justify-around rounded-lg p-8 space-y-5">
       <h1 className="text-2xl font-bold mb-2">Enter your details</h1>
 
       <form onSubmit={onSubmit} className=" my-2 flex flex-col justify-between">
