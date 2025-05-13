@@ -20,10 +20,10 @@ export default function StepsCounter({ isComplete }: Props) {
                 className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
                   index + 1 <= currentStep || isComplete
                     ? "bg-primary border-primary  text-primary-foreground"
-                    : "bg-gray-100"
+                    : "bg-blue-50"
                 }
                   
-                    ${currentStep === index ? "border-gray-500 border-2" : " border-none"}
+                    ${currentStep === index ? "border-blue-500 border-2" : " border-none"}
                   `}
               >
                 {index + 1 <= currentStep || isComplete ? (

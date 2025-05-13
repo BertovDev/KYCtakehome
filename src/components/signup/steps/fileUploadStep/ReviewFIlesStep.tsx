@@ -20,7 +20,7 @@ export default function ReviewFIlesStep({
   isLoading,
 }: Props) {
   return (
-    <div className="flex flex-col items-center py-8 px-4 md:px-6 max-w-2xl mx-auto text-center animate-fadeIn">
+    <div className="flex flex-col items-center py-5 px-4 md:px-6 max-w-2xl mx-auto text-center animate-fadeIn">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
         Files Review
       </h1>
