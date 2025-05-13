@@ -3,7 +3,7 @@
 import { useFormData } from "@/context/SignupStepContext";
 import { useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, File, Image, Mail, User, X } from "lucide-react";
+import { Check, File, Mail, User, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StepButtons from "../StepButtons";

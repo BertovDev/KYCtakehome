@@ -14,7 +14,6 @@ import { step1Endpoint, step3Endpoint } from "@/app/routes";
 import IdVerificationStep from "./IdVerificationStep";
 import PhotoVerificationStep from "./PhotoVerificationStep";
 import ReviewFIlesStep from "./ReviewFIlesStep";
-import StepButtons from "../../StepButtons";
 
 type ImagePreviewType = {
   idImage: string | null;
@@ -149,8 +148,6 @@ export default function FileUploadStep() {
           isLoading={isLoading}
         />
       )}
-
-      {/* {currentStep === "review" && <StepButtons isLoading={isLoading} />} */}
     </form>
   );
 }
