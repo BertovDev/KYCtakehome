@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-8 ">
       <div className="flex flex-col justify-center space-y-6">
         <div className="flex flex-row space-x-5 justify-center md:justify-normal md:flex-col text-4xl sm:text-5xl md:text-7xl font-bold  text-gray-900">
           <h1>Spin</h1>
@@ -60,7 +60,7 @@ export default function HeroSection() {
                 className="object-contain rounded-full"
               />
 
-              <div className="absolute md:bottom-0 bottom-40 left-0 right-0 bg-gray-100 shadow-lg backdrop-blur-xl p-5 rounded-full ">
+              <div className="absolute md:-bottom-7 bottom-40 left-5 flex justify-center items-center flex-col right-0 bg-[#F1F2ED] shadow-lg backdrop-blur-xl p-5 rounded-full ">
                 <h3 className="font-bold text-lg">
                   Built-in Wallet for Secure Transactions
                 </h3>
