@@ -61,7 +61,7 @@ export default function PhotoVerificationStep({
           <div className="flex flex-col gap-y-2 items-center">
             <div className="relative max-w-md">
               <Image
-                className="w-full object-contain border-blue-500 border-4 rounded-xl p-0.5"
+                className="w-full object-contain border-blue-400 border-2 rounded-xl p-0.5"
                 src={imagePreview.photoImage}
                 alt="Image Preview"
                 width={200}
@@ -107,7 +107,7 @@ export default function PhotoVerificationStep({
               />
             </div>
 
-            <div className="mb-6 p-4 border border-gray-200 rounded-lg bg-blue-50">
+            <div className="mb-2 p-4 border border-gray-200 rounded-lg bg-blue-50">
               <h3 className="font-medium text-gray-800 mb-2">
                 Tips for a good selfie:
               </h3>
@@ -130,6 +130,14 @@ export default function PhotoVerificationStep({
                 </li>
               </ul>
             </div>
+            <Button
+              variant="outline"
+              onClick={() => setCurrentStep("id")}
+              className="mb-2 w-1/6"
+              type="button"
+            >
+              Back
+            </Button>
           </div>
         )}
       </div>

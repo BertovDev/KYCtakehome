@@ -14,6 +14,7 @@ import { step1Endpoint, step3Endpoint } from "@/app/routes";
 import IdVerificationStep from "./IdVerificationStep";
 import PhotoVerificationStep from "./PhotoVerificationStep";
 import ReviewFIlesStep from "./ReviewFIlesStep";
+import StepButtons from "../../StepButtons";
 
 type ImagePreviewType = {
   idImage: string | null;
@@ -31,7 +32,7 @@ export default function FileUploadStep() {
     photoImage: null,
   });
 
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     setValue,
@@ -80,13 +81,14 @@ export default function FileUploadStep() {
   }, [isHydrated, data, router]);
 
   const onSubmit = handleSubmit(async (values: KycFormValues) => {
-    // setIsLoading(true);
+    setIsLoading(true);
+
     try {
       await new Promise((resolve) => setTimeout(resolve, 200));
     } catch (error) {
       console.error("Error during form submission:", error);
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false);
       setData({
         ...data,
         ...values,
@@ -144,6 +146,7 @@ export default function FileUploadStep() {
         <ReviewFIlesStep
           setCurrentStep={setCurrentStep}
           imagePreview={imagePreview}
+          isLoading={isLoading}
         />
       )}
 
