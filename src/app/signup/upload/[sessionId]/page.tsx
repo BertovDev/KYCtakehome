@@ -21,6 +21,7 @@ export default function UploadPage() {
       .then((data) => {
         if (data.status === 200) {
           console.log("File uploaded successfully");
+          console.log(data);
           setIsComplete(true);
         }
       })

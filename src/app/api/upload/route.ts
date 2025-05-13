@@ -18,9 +18,11 @@ export async function POST(request: Request) {
   const filename = sessionId + "_" + file.name.replaceAll(" ", "_");
 
   try {
-    await writeFile(path.join(process.cwd(), "/tmp/" + filename), buffer);
+    await writeFile(path.join("/tmp/" + filename), buffer).then((data) => {
+      console.log(data);
+    });
     return NextResponse.json(
-      { message: "File uploaded successfully" },
+      { message: "File uploaded successfully", filename },
       { status: 200 }
     );
   } catch (error) {
@@ -63,7 +65,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ message: "Session not found" }, { status: 404 });
   }
 
-  const dir = path.join(process.cwd(), "public/uploads", sessionId);
+  const dir = path.join("/tmp/");
 
   console.log("DIrectory: " + dir);
 
