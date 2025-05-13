@@ -6,9 +6,9 @@ import { Search, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navItems = [
-  { name: "Discover", href: "/signup" },
-  { name: "Connect", href: "/signup" },
   { name: "Sell / Buy", href: "/signup" },
+  { name: "Connect", href: "/signup" },
+  { name: "Sign Up", href: "/signup" },
 ];
 
 export default function NavBar() {
