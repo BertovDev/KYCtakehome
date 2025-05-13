@@ -6,7 +6,7 @@ import { Check } from "lucide-react";
 
 export default function UploadPage() {
   const [isComplete, setIsComplete] = useState(false);
-  const { sessionId } = useParams();
+  const { sessionId } = useParams() as { sessionId: string };
 
   const handleUpload = async (file: File) => {
     if (!file) return;
