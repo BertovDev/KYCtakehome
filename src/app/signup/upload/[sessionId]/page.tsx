@@ -12,7 +12,7 @@ export default function UploadPage() {
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("sessionId", (sessionId as string) || "");
+    formData.append("sessionId", sessionId || "");
 
     await fetch(`/api/upload`, {
       method: "POST",
