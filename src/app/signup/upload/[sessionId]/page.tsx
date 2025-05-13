@@ -18,15 +18,19 @@ export default function UploadPage() {
       method: "POST",
       body: formData,
     })
-      .then((data) => {
-        console.log(data.json());
-        if (data.status === 200) {
+      .then(async (res) => {
+        const json = await res.json();
+        console.log(json);
+
+        if (res.status === 200) {
           console.log("File uploaded successfully");
           setIsComplete(true);
+        } else {
+          console.error("Upload failed", json);
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Request failed", err);
       });
   };
 
@@ -41,7 +45,7 @@ export default function UploadPage() {
         <UploadFromDevice
           handleUploadIdFile={(e) => handleUpload(e)}
           errors={{}}
-          handleUploadImagePreview={(e) => handleUpload(e)}
+          handleUploadImagePreview={(e) => console.log(e)}
         />
       )}
     </>
