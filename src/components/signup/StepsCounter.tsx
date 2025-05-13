@@ -10,8 +10,6 @@ type Props = {
 export default function StepsCounter({ isComplete }: Props) {
   const { currentStep } = useStep();
 
-  console.log(currentStep);
-
   return (
     <div className="pt-10 pb-5">
       <div className="flex items-center  flex-row space-x-3  ">

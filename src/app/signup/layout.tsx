@@ -6,6 +6,7 @@ import { SignupProvider } from "@/context/SignupStepContext";
 
 import StepsCounter from "@/components/signup/StepsCounter";
 import useStep from "../../hooks/useStep";
+import NavBar from "@/components/landing/Navbar";
 
 import "../globals.css";
 
@@ -18,8 +19,11 @@ export default function Layout({ children }: Props) {
 
   return (
     <SignupProvider>
-      <div className="flex  min-h-screen w-full items-center justify-center  signup-steps flex-row content-layout ">
-        <div className="w-full max-w-5xl  py-10 flex">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <NavBar />
+      </div>
+      <div className="flex  w-full items-start mt-20 justify-center  signup-steps flex-row content-layout ">
+        <div className="w-full max-w-5xl   flex">
           <Card className="w-full h-full flex flex-col items-center justify-center shadow-lg border-border ">
             {currentStep >= 0 && <StepsCounter isComplete={isComplete} />}
             {/* <CardHeader className="pb-4">
