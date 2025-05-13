@@ -17,7 +17,11 @@ export default async function handler(
 ) {
   if (req.method !== "POST") return res.status(405).end();
 
-  const form = formidable({ multiples: false });
+  const form = formidable({
+    multiples: false,
+    uploadDir: "/tmp",
+    keepExtensions: true,
+  });
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
@@ -60,7 +64,7 @@ export default async function handler(
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const uploadDir = path.join(process.cwd(), "public/uploads", sessionId);
+    const uploadDir = path.join(process.cwd(), "tmp", sessionId);
     fs.mkdirSync(uploadDir, { recursive: true });
 
     const finalPath = path.join(uploadDir, path.basename(fileName || ""));

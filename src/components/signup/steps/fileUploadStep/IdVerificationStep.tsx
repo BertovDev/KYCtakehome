@@ -32,7 +32,7 @@ export default function IdVerificationStep({
   const handleUploadImagePreview = (file: File, sessionId?: string) => {
     if (sessionId !== undefined) {
       setImagePreview({
-        idImage: `/uploads/${sessionId}/` + file.name,
+        idImage: `tmp/${sessionId}/` + file.name,
         photoImage: null,
       });
     } else {

@@ -13,7 +13,7 @@ export default async function handler(
   console.log("Session ID: " + id);
 
   // Mock: check if session has uploaded files
-  const dir = path.join(process.cwd(), "public/uploads", id as string);
+  const dir = path.join(process.cwd(), "tmp", id as string);
   const exists = fs.existsSync(dir);
   const files = exists ? fs.readdirSync(dir) : [];
 
