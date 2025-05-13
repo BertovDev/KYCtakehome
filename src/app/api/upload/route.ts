@@ -23,16 +23,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Session not found" }, { status: 404 });
   }
 
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = file.name.replaceAll(" ", "_");
+  if (!file) {
+    return NextResponse.json({ message: "File not found" }, { status: 404 });
+  }
 
   try {
-    const dir = path.join(process.cwd(), "public/uploads", sessionId);
-    fs.mkdirSync(dir, { recursive: true });
+    // Here we store the files in some storage service Or db
+    console.log("File " + file.name + " uploaded successfully");
 
-    const newPath = path.join(dir, filename);
-    await writeFile(newPath, buffer);
-
+    // Disable the session after the file is uploaded
     disableSession(sessionId);
 
     return NextResponse.json(
@@ -54,20 +53,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ message: "Session not found" }, { status: 404 });
   }
 
-  const dir = path.join(process.cwd(), "public/uploads", sessionId);
-
-  if (!fs.existsSync(dir)) {
-    return NextResponse.json({ message: "Session not found" }, { status: 404 });
-  }
-
-  const files = fs.readdirSync(dir);
-  const stats = fs.statSync(path.join(dir, files[0]));
-
-  const responseObj = {
-    name: files[0],
-    type: "image/" + files[0].split(".")[1],
-    size: stats.size,
+  const mockResponse = {
+    name: "mockFile.jpg",
+    type: "image/jpeg",
+    size: 22522,
     sessionId: sessionId,
   };
-  return NextResponse.json(responseObj, { status: 200 });
+
+  return NextResponse.json(mockResponse, { status: 200 });
 }
