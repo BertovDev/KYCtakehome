@@ -7,7 +7,7 @@ import Image from "next/image";
 
 type Props = {
   setIsModalOpen: (open: boolean) => void;
-  // handleUploadImagePreview?: (file: File, sessionId?: string) => void;
+  handleUploadImagePreview?: (file: File, sessionId?: string) => void;
   handleUploadIdFile: (file: File) => void;
   errors: {
     governmentIdFile?: {
@@ -19,7 +19,7 @@ type Props = {
 export default function ConnectMobileComponent({
   setIsModalOpen,
   handleUploadIdFile,
-  // handleUploadImagePreview,
+  handleUploadImagePreview,
   errors,
 }: Props) {
   const [sessionId, setSessionId] = useState("");
@@ -61,9 +61,9 @@ export default function ConnectMobileComponent({
             const newFile = new File([], fileData.name, {
               type: fileData.type,
             });
-            // if (handleUploadImagePreview) {
-            //   handleUploadImagePreview(newFile, sessionId);
-            // }
+            if (handleUploadImagePreview) {
+              handleUploadImagePreview(newFile, sessionId);
+            }
             handleUploadIdFile(newFile);
           }
         }
