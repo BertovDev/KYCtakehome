@@ -98,7 +98,7 @@ export default function IdVerificationStep({
             <div className="flex flex-row gap-x-5">
               <UploadFromMobile
                 handleUploadIdFile={handleUploadIdFile}
-                handleUploadImagePreview={handleUploadImagePreview}
+                // handleUploadImagePreview={handleUploadImagePreview}
                 errors={errors}
               />
 

@@ -5,7 +5,7 @@ import ConnectMobileComponent from "./ConnectMobileComponent";
 
 type Props = {
   handleUploadIdFile: (file: File) => void;
-  handleUploadImagePreview?: (file: File, sessionId?: string) => void;
+  // handleUploadImagePreview?: (file: File, sessionId?: string) => void;
   errors: {
     governmentIdFile?: {
       message?: string;
@@ -15,7 +15,7 @@ type Props = {
 
 export default function UploadFromMobile({
   handleUploadIdFile,
-  handleUploadImagePreview,
+  // handleUploadImagePreview,
   errors,
 }: Props) {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -59,7 +59,7 @@ export default function UploadFromMobile({
       {isModalOpen && (
         <ConnectMobileComponent
           handleUploadIdFile={handleUploadIdFile}
-          handleUploadImagePreview={undefined}
+          // handleUploadImagePreview={handleUploadImagePreview}
           errors={errors}
           setIsModalOpen={setIsModalOpen}
         />
