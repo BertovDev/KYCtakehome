@@ -6,15 +6,13 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-8">
-      <div className="flex flex-col justify-center space-y-6  ">
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold  text-gray-900">
-          Spin
-          <br />
-          Swap
-          <br />
-          Connect.
-        </h1>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-8 ">
+      <div className="flex flex-col justify-center space-y-6">
+        <div className="flex flex-row space-x-5 justify-center md:justify-normal md:flex-col text-4xl sm:text-5xl md:text-7xl font-bold  text-gray-900">
+          <h1>Spin</h1>
+          <h1>Swap</h1>
+          <h1>Connect.</h1>
+        </div>
 
         <p className="text-gray-600 max-w-md">
           Discover a new way to trade vinyls. Connect with collectors, exchange
@@ -50,7 +48,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative mt-5 md:mt-0">
         <div className="relative h-[600px] md:h-[600px] w-full">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative w-full h-full bottom-10 ">
@@ -62,7 +60,7 @@ export default function HeroSection() {
                 className="object-contain rounded-full"
               />
 
-              <div className="absolute bottom-0 left-0 right-0 bg-gray-100 shadow-lg backdrop-blur-xl p-5 rounded-full ">
+              <div className="absolute md:-bottom-7 bottom-40 left-5 flex justify-center items-center flex-col right-0 bg-[#F1F2ED] shadow-lg backdrop-blur-xl p-5 rounded-full ">
                 <h3 className="font-bold text-lg">
                   Built-in Wallet for Secure Transactions
                 </h3>
