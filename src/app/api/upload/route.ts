@@ -18,10 +18,7 @@ export async function POST(request: Request) {
   const filename = sessionId + "_" + file.name.replaceAll(" ", "_");
 
   try {
-    await writeFile(
-      path.join(process.cwd(), "public/uploads/" + filename),
-      buffer
-    );
+    await writeFile(path.join(process.cwd(), "/tmp/" + filename), buffer);
     return NextResponse.json(
       { message: "File uploaded successfully" },
       { status: 200 }
