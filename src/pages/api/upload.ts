@@ -5,7 +5,6 @@ import formidable from "formidable";
 import fs from "fs";
 import path from "path";
 import { disableSession, isSessionActive } from "@/lib/sessionStore";
-import PersistentFile from "formidable/PersistentFile";
 
 // Disable body parser
 export const config = {
