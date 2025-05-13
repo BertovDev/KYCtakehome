@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
 import fs from "fs";
-import { disableSession, isSessionActive } from "@/lib/sessionStore";
 
 export const config = {
   api: {
@@ -10,46 +9,54 @@ export const config = {
   },
 };
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   const formData = await request.formData();
   const file = formData.get("file") as File;
   const sessionId = formData.get("sessionId")?.toString() || "";
 
-  if (!sessionId) {
-    return NextResponse.json({ message: "Session not found" }, { status: 404 });
-  }
-
-  if (!isSessionActive(sessionId)) {
-    return NextResponse.json(
-      { message: "Session is not active" },
-      { status: 404 }
-    );
-  }
-
   const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = file.name.replaceAll(" ", "_");
+  const filename = sessionId + "_" + file.name.replaceAll(" ", "_");
 
   try {
-    const dir = path.join(process.cwd(), "public/uploads", sessionId);
-    fs.mkdirSync(dir, { recursive: true });
-
-    const newPath = path.join(dir, filename);
-    await writeFile(newPath, buffer);
-
-    console.log("DIrectory: " + dir);
-
-    disableSession(sessionId);
-
+    await writeFile(
+      path.join(process.cwd(), "public/uploads/" + filename),
+      buffer
+    );
     return NextResponse.json(
       { message: "File uploaded successfully" },
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
-      { message: "Error uploading file", error: error },
-      { status: 400 }
+      { message: "File upload failed" },
+      { status: 500 }
     );
   }
+
+  // console.log(file, sessionId);
+
+  // if (!sessionId) {
+  //   return NextResponse.json({ message: "Session not found" }, { status: 404 });
+  // }
+
+  // if (!isSessionActive(sessionId)) {
+  //   return NextResponse.json(
+  //     { message: "Session is not active" },
+  //     { status: 404 }
+  //   );
+  // }
+
+  // if (!request.body)
+  //   return NextResponse.json({ message: "No file" }, { status: 404 });
+
+  // const blob = await put(file.name, file, {
+  //   access: "public",
+  // });
+
+  // console.log(blob);
+
+  // return NextResponse.json({ blob });
 }
 
 export async function GET(request: NextRequest) {

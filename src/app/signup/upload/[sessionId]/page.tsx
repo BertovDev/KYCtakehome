@@ -19,7 +19,6 @@ export default function UploadPage() {
       body: formData,
     })
       .then((data) => {
-        console.log(data.json());
         if (data.status === 200) {
           console.log("File uploaded successfully");
           setIsComplete(true);

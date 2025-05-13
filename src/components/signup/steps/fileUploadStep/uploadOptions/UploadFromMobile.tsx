@@ -59,7 +59,7 @@ export default function UploadFromMobile({
       {isModalOpen && (
         <ConnectMobileComponent
           handleUploadIdFile={handleUploadIdFile}
-          handleUploadImagePreview={handleUploadImagePreview}
+          // handleUploadImagePreview={handleUploadImagePreview}
           errors={errors}
           setIsModalOpen={setIsModalOpen}
         />
