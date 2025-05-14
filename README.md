@@ -1,5 +1,11 @@
 ## Multi-Step Signup Form
 
+### Install dependencies
+`npm install` 
+
+### Start the application
+`npm run dev`
+
 This application implements a multi-step signup process using the **Next.js App Router**, where each step is a separate route with its own form. The steps are sequential and state is preserved across them using context and `localStorage`.
 
 ---
