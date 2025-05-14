@@ -20,6 +20,7 @@ type Props = {
       message?: string;
     };
   };
+  setShowToast: (params: { state: boolean; id: string }) => void;
 };
 
 export default function PhotoVerificationStep({
@@ -28,6 +29,7 @@ export default function PhotoVerificationStep({
   setImagePreview,
   imagePreview,
   errors,
+  setShowToast,
 }: Props) {
   const handleUploadImagePreview = (file: File, sessionId?: string) => {
     if (sessionId !== undefined) {
@@ -83,7 +85,13 @@ export default function PhotoVerificationStep({
             <div className="flex flex-row gap-x-2 w-full ">
               <Button
                 type="button"
-                onClick={() => setCurrentStep("review")}
+                onClick={() => {
+                  setCurrentStep("review");
+                  setShowToast({
+                    state: true,
+                    id: "photo",
+                  });
+                }}
                 variant="default"
                 className="w-full "
               >
