@@ -41,7 +41,9 @@ export default function SignUpModal({ setStart }: Props) {
               </p>
             </div>
             <Button className="rounded-full bg-blue-600 hover:bg-blue-700 text-white px-8 py-2">
-              <Link href="/signup">Sign Up</Link>
+              <Link className="w-full" href="/signup">
+                Sign Up
+              </Link>
             </Button>
           </div>
         </div>

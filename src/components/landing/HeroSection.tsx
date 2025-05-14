@@ -8,10 +8,10 @@ export default function HeroSection() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-8 ">
       <div className="flex flex-col justify-center space-y-6">
-        <div className="flex flex-row space-x-5 justify-center md:justify-normal md:flex-col text-4xl sm:text-5xl md:text-7xl font-bold  text-gray-900">
-          <h1>Spin</h1>
-          <h1>Swap</h1>
-          <h1>Connect.</h1>
+        <div className="flex flex-col md:flex-row md:space-x-5 justify-center  md:justify-normal text-5xl sm:text-5xl md:text-6xl font-bold  text-gray-900">
+          <span>Connect.</span>
+          <span>Swap.</span>
+          <span>Spin.</span>
         </div>
 
         <p className="text-gray-600 max-w-md">
@@ -27,7 +27,7 @@ export default function HeroSection() {
             variant="outline"
             className="rounded-full p-3 border border-gray-400"
           >
-            <Link href="/signup">
+            <Link className="w-full" href="/signup">
               <Play className="h-5 w-5 text-gray-700" />
             </Link>
           </Button>
