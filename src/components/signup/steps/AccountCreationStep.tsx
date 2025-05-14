@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { step1Endpoint } from "@/lib/routes";
 import Image from "next/image";
-import { Skeleton } from "@radix-ui/themes";
 
 export default function AccountCreationStep() {
   const router = useRouter();
