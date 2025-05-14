@@ -7,8 +7,8 @@ import { Theme } from "@radix-ui/themes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Eatit",
-  description: "Be the number one competitor",
+  title: "Viniltify",
+  description: "Connect, swap, and spin vinyls with real music lovers",
 };
 
 export default function RootLayout({
