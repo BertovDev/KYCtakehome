@@ -31,7 +31,7 @@ export default function UploadPage() {
 
   return (
     <>
-      {!isComplete ? (
+      {isComplete ? (
         <div className="flex flex-col py-5 items-center justify-center gap-y-5 border-9 ">
           <h3 className="text-black text-2xl">File uploaded successfully</h3>
           <CheckCircle className="w-52 h-52 text-blue-400 p-2 " />
