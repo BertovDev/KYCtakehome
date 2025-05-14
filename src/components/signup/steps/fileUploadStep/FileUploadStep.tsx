@@ -61,6 +61,7 @@ export default function FileUploadStep() {
       router.push(step1Endpoint);
     }
 
+    // Create file from string to simulate File persistence
     const files = simulateBackendFilePersistance(data);
     const filesPhoto = simulateBackendFilePersistancePhoto(data);
 
