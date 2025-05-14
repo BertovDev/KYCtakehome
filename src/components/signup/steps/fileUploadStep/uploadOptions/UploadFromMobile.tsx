@@ -27,7 +27,6 @@ export default function UploadFromMobile({
     <>
       <div
         onClick={() => {
-          console.log("click");
           setIsModalOpen(true);
         }}
         className="flex flex-col gap-y-5 border bg-gray-50  rounded-lg shadow-sm border-gray-200 py-5 px-10 text-center hover:bg-gray-100 transition cursor-pointer"

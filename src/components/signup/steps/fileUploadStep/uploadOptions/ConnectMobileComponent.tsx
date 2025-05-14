@@ -48,8 +48,6 @@ export default function ConnectMobileComponent({
         );
         const { active } = await status.json();
 
-        console.log(active, sessionId);
-
         if (!active) {
           const file = await fetch(`/api/upload?sessionId=${sessionId}`);
           const fileData = await file.json();
