@@ -7,7 +7,7 @@ import { Check, File, Mail, User, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StepButtons from "../StepButtons";
-import { walletInitEndpoint } from "@/app/routes";
+import { walletInitEndpoint } from "@/lib/routes";
 
 export default function DetailsConfirmationStep() {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,8 +24,6 @@ export default function DetailsConfirmationStep() {
       await new Promise((resolve) => setTimeout(resolve, 200));
       setIsLoading(false);
       router.push(walletInitEndpoint);
-      console.log("submitData");
-      console.log(data);
     } catch (error) {
       console.error("Error during form submission:", error);
     }

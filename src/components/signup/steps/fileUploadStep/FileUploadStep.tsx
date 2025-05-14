@@ -10,7 +10,7 @@ import {
   simulateBackendFilePersistance,
   simulateBackendFilePersistancePhoto,
 } from "@/lib/utils";
-import { step1Endpoint, step3Endpoint } from "@/app/routes";
+import { step1Endpoint, step3Endpoint } from "@/lib/routes";
 import IdVerificationStep from "./IdVerificationStep";
 import PhotoVerificationStep from "./PhotoVerificationStep";
 import ReviewFIlesStep from "./ReviewFIlesStep";
@@ -61,6 +61,7 @@ export default function FileUploadStep() {
       router.push(step1Endpoint);
     }
 
+    // Create file from string to simulate File persistence
     const files = simulateBackendFilePersistance(data);
     const filesPhoto = simulateBackendFilePersistancePhoto(data);
 
@@ -84,9 +85,7 @@ export default function FileUploadStep() {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 200));
-    } catch (error) {
-      console.error("Error during form submission:", error);
-    } finally {
+
       setIsLoading(false);
       setData({
         ...data,
@@ -102,6 +101,8 @@ export default function FileUploadStep() {
       });
 
       router.push(step3Endpoint);
+    } catch (error) {
+      console.error("Error during form submission:", error);
     }
   });
 

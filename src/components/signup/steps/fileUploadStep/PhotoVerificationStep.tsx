@@ -33,7 +33,7 @@ export default function PhotoVerificationStep({
     if (sessionId !== undefined) {
       setImagePreview({
         ...imagePreview,
-        photoImage: "/profilePlaceholder.png",
+        photoImage: "/images/image2.png",
       });
     } else {
       const reader = new FileReader();
