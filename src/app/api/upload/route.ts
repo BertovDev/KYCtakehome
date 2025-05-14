@@ -50,6 +50,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ message: "Session not found" }, { status: 404 });
   }
 
+  // Mock GET to the storage service to get the file
+
   const mockResponse = {
     name: "mockFile.jpg",
     type: "image/jpeg",

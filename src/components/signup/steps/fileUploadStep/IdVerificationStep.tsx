@@ -5,7 +5,7 @@ import Image from "next/image";
 import UploadFromDevice from "./uploadOptions/UploadFromDevice";
 import UploadFromMobile from "./uploadOptions/UploadFromMobile";
 import { useRouter } from "next/navigation";
-import { step1Endpoint } from "@/app/routes";
+import { step1Endpoint } from "@/lib/routes";
 
 type imagePreviewType = {
   idImage: string | null;

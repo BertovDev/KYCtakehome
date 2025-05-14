@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { SignUpFormValues, signUpSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { step1Endpoint } from "@/app/routes";
+import { step1Endpoint } from "@/lib/routes";
 import Image from "next/image";
 
 export default function AccountCreationStep() {
@@ -35,12 +35,11 @@ export default function AccountCreationStep() {
     setIsLoading(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 200));
-    } catch (error) {
-      console.error("Error during form submission:", error);
-    } finally {
       setIsLoading(false);
       setData({ ...data, ...values });
       router.push(step1Endpoint);
+    } catch (error) {
+      console.error("Error during form submission:", error);
     }
   });
 
