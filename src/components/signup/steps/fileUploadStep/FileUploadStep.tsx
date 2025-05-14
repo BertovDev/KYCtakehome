@@ -14,6 +14,14 @@ import { step1Endpoint, step3Endpoint } from "@/lib/routes";
 import IdVerificationStep from "./IdVerificationStep";
 import PhotoVerificationStep from "./PhotoVerificationStep";
 import ReviewFIlesStep from "./ReviewFIlesStep";
+import {
+  ToastViewport,
+  ToastProvider,
+  ToastDescription,
+  ToastTitle,
+  Toast,
+} from "@/components/ui/toast";
+import { Check } from "lucide-react";
 
 type ImagePreviewType = {
   idImage: string | null;
@@ -32,6 +40,10 @@ export default function FileUploadStep() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [showToast, setShowToast] = useState({
+    state: false,
+    id: "",
+  });
 
   const {
     setValue,
@@ -125,30 +137,59 @@ export default function FileUploadStep() {
   return !isHydrated ? (
     <p className="text-black text-3xl">Loading...</p>
   ) : (
-    <form onSubmit={onSubmit} className="space-y-6">
-      {currentStep === "id" ? (
-        <IdVerificationStep
-          setCurrentStep={setCurrentStep}
-          handleUploadIdFile={handleIdUpload}
-          setImagePreview={setImagePreview}
-          imagePreview={imagePreview}
-          errors={errors}
-        />
-      ) : currentStep === "photo" ? (
-        <PhotoVerificationStep
-          handlePhotoUpload={handlePhotoUpload}
-          setCurrentStep={setCurrentStep}
-          setImagePreview={setImagePreview}
-          imagePreview={imagePreview}
-          errors={errors}
-        />
-      ) : (
-        <ReviewFIlesStep
-          setCurrentStep={setCurrentStep}
-          imagePreview={imagePreview}
-          isLoading={isLoading}
-        />
+    <>
+      <form onSubmit={onSubmit} className="space-y-6">
+        {currentStep === "id" ? (
+          <IdVerificationStep
+            setCurrentStep={setCurrentStep}
+            handleUploadIdFile={handleIdUpload}
+            setImagePreview={setImagePreview}
+            imagePreview={imagePreview}
+            errors={errors}
+            setShowToast={setShowToast}
+          />
+        ) : currentStep === "photo" ? (
+          <PhotoVerificationStep
+            handlePhotoUpload={handlePhotoUpload}
+            setCurrentStep={setCurrentStep}
+            setImagePreview={setImagePreview}
+            imagePreview={imagePreview}
+            errors={errors}
+            setShowToast={setShowToast}
+          />
+        ) : (
+          <ReviewFIlesStep
+            setCurrentStep={setCurrentStep}
+            imagePreview={imagePreview}
+            isLoading={isLoading}
+          />
+        )}
+      </form>
+      {showToast.state && (
+        <ToastProvider duration={1500} swipeDirection="up">
+          <Toast
+            onAnimationEnd={(e) => {
+              if (e.animationName === "exit") {
+                setShowToast({
+                  state: false,
+                  id: "",
+                });
+              }
+            }}
+            variant="default"
+            className="bg-white"
+          >
+            <ToastTitle>
+              {showToast.id === "id" ? "ID" : "Photo"} File uploaded
+              successfully
+            </ToastTitle>
+            <ToastDescription asChild>
+              <Check className="w-8 h-8 text-green-500" />
+            </ToastDescription>
+          </Toast>
+          <ToastViewport className="ToastViewport" />
+        </ToastProvider>
       )}
-    </form>
+    </>
   );
 }

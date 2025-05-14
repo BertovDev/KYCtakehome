@@ -22,6 +22,7 @@ type Props = {
       message?: string;
     };
   };
+  setShowToast: (params: { state: boolean; id: string }) => void;
 };
 
 export default function IdVerificationStep({
@@ -30,6 +31,7 @@ export default function IdVerificationStep({
   setCurrentStep,
   setImagePreview,
   imagePreview,
+  setShowToast,
 }: Props) {
   const router = useRouter();
 
@@ -90,6 +92,10 @@ export default function IdVerificationStep({
                 type="button"
                 onClick={() => {
                   setCurrentStep("photo");
+                  setShowToast({
+                    state: true,
+                    id: "id",
+                  });
                 }}
                 variant="default"
                 className="w-full "
