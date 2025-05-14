@@ -3,11 +3,12 @@
 import { useFormData } from "@/context/SignupStepContext";
 import { useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, File, Mail, User, X } from "lucide-react";
+import { Check, File, Mail, User, X, Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StepButtons from "../StepButtons";
-import { walletInitEndpoint } from "@/lib/routes";
+import { step1Endpoint, step2Endpoint, walletInitEndpoint } from "@/lib/routes";
+import Link from "next/link";
 
 export default function DetailsConfirmationStep() {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,8 +37,13 @@ export default function DetailsConfirmationStep() {
           <CardHeader>
             <CardTitle className="text-lg">
               <div className="flex items-center gap-x-2">
-                <Mail className="h-5 w-5 text-gray-600" />
-                Account Information
+                <div className="flex items-center gap-x-2">
+                  <Mail className="h-5 w-5 text-gray-600" />
+                  Account Information
+                </div>
+                <Link href={step1Endpoint}>
+                  <Edit className="h-5 w-5 text-gray-600" />
+                </Link>
               </div>
             </CardTitle>
           </CardHeader>
@@ -57,6 +63,9 @@ export default function DetailsConfirmationStep() {
               <div className="flex items-center gap-x-2">
                 <User className="h-5 w-5 text-gray-600" />
                 Personal Information
+                <Link href={step1Endpoint}>
+                  <Edit className="h-5 w-5 text-gray-600" />
+                </Link>
               </div>
             </CardTitle>
           </CardHeader>
@@ -118,6 +127,9 @@ export default function DetailsConfirmationStep() {
               <div className="flex items-center gap-x-2">
                 <File className="h-5 w-5 text-gray-600" />
                 Uploaded Documents
+                <Link href={step2Endpoint}>
+                  <Edit className="h-5 w-5 text-gray-600" />
+                </Link>
               </div>
             </CardTitle>
           </CardHeader>
