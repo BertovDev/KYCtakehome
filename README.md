@@ -34,11 +34,9 @@ This React context manages state across the signup flow and handles persistence:
 
 #### Provided Values:
 
-ts
-
-CopyEdit
-
-`{   data,         // Collected form data from all previous steps   setData,      // Function to append new step data   isHydrated    // Boolean flag indicating if localStorage has been restored }`
+`{   data,         // Collected form data from all previous steps   
+setData,      // Function to append new step data   
+isHydrated    // Boolean flag indicating if localStorage has been restored }`
 
 #### Responsibilities:
 
@@ -148,3 +146,7 @@ Fetch the uploaded file(s) associated with a session.
 4. Mobile user uploads a file
 5. The session is marked as inactive after upload
 6. Desktop client detects the change and fetches the uploaded file
+
+### Schema Validation
+
+The App use zod for schema creation and validation. Each step of the form has ir own schema and validation process.
