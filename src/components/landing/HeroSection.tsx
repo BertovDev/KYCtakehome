@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function HeroSection() {
   return (
@@ -15,7 +16,66 @@ export default function HeroSection() {
       {/* Futuristic background elements */}
 
       <div className="container px-4 md:px-6 relative z-10">
-        <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-1">
+        <div className="grid gap-6 lg:grid-cols-1 lg:gap-12">
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: 180 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            className="absolute md:top-30 md:left-10 top-0 left-0"
+          >
+            <Image
+              className="relative lg:hidden xl:block  z-100 object-cover"
+              src="/images/btc.png"
+              alt=""
+              width={90}
+              height={90}
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: 180 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            className="absolute md:top-30 md:right-10 top-0 right-0"
+          >
+            <Image
+              className="relative lg:hidden xl:block z-100 object-cover"
+              src="/images/eth.png"
+              alt=""
+              width={90}
+              height={90}
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: 30 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            className="absolute md:bottom-30 md:left-44 bottom-0 left-44"
+          >
+            <Image
+              className="relative lg:hidden xl:block z-100 object-cover"
+              src="/images/sol.png"
+              alt=""
+              width={90}
+              height={90}
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: 30 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            className="absolute md:top-64 md:right-44 top-44 right-44"
+          >
+            <Image
+              className="relative lg:hidden xl:block rotate-12   z-100 object-cover"
+              src="/images/usdt.png"
+              alt=""
+              width={90}
+              height={90}
+            />
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -27,7 +87,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               className="inline-flex  items-center space-x-2 rounded-full bg-zinc-800/60 px-3 py-1 text-sm text-cyan-400 backdrop-blur-sm border border-zinc-700/50 
-        w-fit"
+              w-fit"
             >
               <motion.span
                 animate={{
