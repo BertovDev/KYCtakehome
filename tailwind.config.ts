@@ -7,8 +7,8 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+    "*.{js,ts,jsx,tsx,mdx}",
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,
@@ -25,8 +25,18 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#3b4cb8",
           foreground: "hsl(var(--primary-foreground))",
+          50: "#eef0f9",
+          100: "#d5daf0",
+          200: "#b0b9e2",
+          300: "#8a97d4",
+          400: "#6f7ec9",
+          500: "#5465be",
+          600: "#3b4cb8",
+          700: "#343ea3",
+          800: "#2d358f",
+          900: "#21266a",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -52,6 +62,31 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        cyan: {
+          400: "#22d3ee",
+          500: "#06b6d4",
+          600: "#0891b2",
+        },
+        blue: {
+          400: "#60a5fa",
+          500: "#3b82f6",
+          600: "#2563eb",
+        },
+        purple: {
+          400: "#c084fc",
+          500: "#a855f7",
+          600: "#9333ea",
+        },
+        emerald: {
+          500: "#10b981",
+        },
+        red: {
+          500: "#ef4444",
+        },
+        orange: {
+          400: "#fb923c",
+          600: "#ea580c",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -60,17 +95,27 @@ const config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
+          from: { height: 0 },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          to: { height: 0 },
+        },
+        pulse: {
+          "0%, 100%": { opacity: 1 },
+          "50%": { opacity: 0.5 },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        shimmer: "shimmer 2s linear infinite",
       },
     },
   },

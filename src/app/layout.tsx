@@ -7,7 +7,7 @@ import { Theme } from "@radix-ui/themes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Viniltify",
+  title: "Cryptiva",
   description: "Connect, swap, and spin vinyls with real music lovers",
 };
 
@@ -19,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
-        <Theme hasBackground className="content-layout">
-          {children}
-        </Theme>
+        <Theme>{children}</Theme>
       </body>
     </html>
   );
