@@ -1,8 +1,6 @@
-import Image from "next/image";
 import {
   ChevronRight,
   ExternalLink,
-  Play,
   Shield,
   TrendingUp,
   Zap,

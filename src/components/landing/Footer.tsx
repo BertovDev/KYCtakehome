@@ -104,7 +104,7 @@ export default function Footer({}: Props) {
             © 2025 Cryptiva. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 sm:mt-0">
-            {["facebook", "twitter", "instagram"].map((social, index) => (
+            {["facebook", "twitter", "instagram"].map((social) => (
               <motion.a
                 key={social}
                 whileHover={{ y: -3, color: "#22d3ee" }}
