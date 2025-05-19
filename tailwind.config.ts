@@ -95,16 +95,16 @@ const config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0px" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0px" },
         },
         pulse: {
-          "0%, 100%": { opacity: 1 },
-          "50%": { opacity: 0.5 },
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
         },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
