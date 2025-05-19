@@ -78,9 +78,16 @@ export default function KycVerificationStep() {
   );
 
   return !isHydrated ? (
-    <p className="text-black text-3xl">Loading...</p>
+    <div className="flex items-center justify-center text-zinc-300">
+      Loading...
+    </div>
   ) : (
-    <div className="flex  flex-col w-full  px-10 justify-around rounded-lg p-8 space-y-5">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex  flex-col w-full  px-10 justify-around rounded-lg p-8 space-y-5"
+    >
       <h1 className="text-2xl font-bold mb-2 text-zinc-300">
         Enter your details
       </h1>
@@ -298,6 +305,6 @@ export default function KycVerificationStep() {
         </div>
         <StepButtons isLoading={isLoading} />
       </form>
-    </div>
+    </motion.div>
   );
 }

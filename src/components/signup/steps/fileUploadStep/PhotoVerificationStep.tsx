@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import UploadFromMobile from "./uploadOptions/UploadFromMobile";
 import UploadFromDevice from "./uploadOptions/UploadFromDevice";
+import { motion } from "framer-motion";
 
 type ImagePreviewType = {
   idImage: string | null;
@@ -48,7 +49,12 @@ export default function PhotoVerificationStep({
   };
 
   return (
-    <div className="space-y-5 flex flex-col justify-center gap-y-2 items-center pt-8 pb-5  file-upload">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="space-y-5 flex flex-col justify-center gap-y-2 items-center pt-8 pb-5  file-upload"
+    >
       <div className="flex  items-center  flex-col gap-y-1 ml-2 ">
         <h2 className="text-xl font-bold text-zinc-300">
           Profile Photo verification{" "}
@@ -149,6 +155,6 @@ export default function PhotoVerificationStep({
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

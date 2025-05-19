@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Check, ChevronRight, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { motion } from "framer-motion";
 type imagePreviewType = {
   idImage: string | null;
   photoImage: string | null;
@@ -20,7 +20,12 @@ export default function ReviewFIlesStep({
   isLoading,
 }: Props) {
   return (
-    <div className="flex flex-col items-center py-5 px-4 md:px-6 max-w-2xl mx-auto text-center animate-fadeIn">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col items-center py-5 px-4 md:px-6 max-w-2xl mx-auto text-center animate-fadeIn"
+    >
       <h1 className="text-2xl md:text-3xl font-bold text-zinc-300 mb-4">
         Files Review
       </h1>
@@ -177,6 +182,6 @@ export default function ReviewFIlesStep({
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button> */}
       </div>
-    </div>
+    </motion.div>
   );
 }

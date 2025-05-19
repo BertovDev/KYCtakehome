@@ -48,7 +48,12 @@ export default function AccountCreationStep() {
       Loading...
     </div>
   ) : (
-    <div className="flex flex-col lg:flex-row w-full justify-around rounded-lg">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col lg:flex-row w-full justify-around rounded-lg"
+    >
       <form className="space-y-2  p-3 mx-2 w-full" onSubmit={onSubmit}>
         <div className="w-full flex items-center justify-center mb-6">
           <h1 className="text-2xl font-bold text-zinc-300 text-center">
@@ -162,6 +167,6 @@ export default function AccountCreationStep() {
           </Button> */}
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 }

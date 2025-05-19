@@ -9,6 +9,7 @@ import { useState } from "react";
 import StepButtons from "../StepButtons";
 import { step1Endpoint, step2Endpoint, walletInitEndpoint } from "@/lib/routes";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function DetailsConfirmationStep() {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +32,13 @@ export default function DetailsConfirmationStep() {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitData)} className="space-y-8 p-5 my-2">
+    <motion.form
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onSubmit={handleSubmit(submitData)}
+      className="space-y-8 p-5 my-2"
+    >
       <div className="grid gap-6">
         <Card className=" bg-zinc-900/50 backdrop-blur-sm">
           <CardHeader>
@@ -169,6 +176,6 @@ export default function DetailsConfirmationStep() {
       </div>
 
       <StepButtons isLoading={isLoading} />
-    </form>
+    </motion.form>
   );
 }

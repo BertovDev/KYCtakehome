@@ -6,7 +6,7 @@ import UploadFromDevice from "./uploadOptions/UploadFromDevice";
 import UploadFromMobile from "./uploadOptions/UploadFromMobile";
 import { useRouter } from "next/navigation";
 import { step1Endpoint } from "@/lib/routes";
-
+import { motion } from "framer-motion";
 type imagePreviewType = {
   idImage: string | null;
   photoImage: string | null;
@@ -52,7 +52,12 @@ export default function IdVerificationStep({
   };
 
   return (
-    <div className="space-y-5 flex flex-col justify-center gap-y-2 items-center pt-8 pb-5  file-upload">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="space-y-5 flex flex-col justify-center gap-y-2 items-center pt-8 pb-5  file-upload"
+    >
       <div className="flex  items-center  flex-col gap-y-1 ml-2 ">
         <h2 className="text-2xl text-zinc-300 font-bold ">ID verification </h2>
 
@@ -151,6 +156,6 @@ export default function IdVerificationStep({
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
