@@ -23,7 +23,7 @@ export default function UploadFromDevice({
 }: Props) {
   return (
     <>
-      <div className="flex flex-col gap-y-5 border shadow-sm bg-gray-50 rounded-lg   border-gray-200 py-5 px-10 text-center hover:bg-gray-100 transition cursor-pointer">
+      <div className="flex flex-col gap-y-5 border shadow-sm bg-zinc-900/50  rounded-lg   border-zinc-800 py-5 px-10 text-center hover:bg-zinc-800 transition cursor-pointer">
         <Input
           id="governmentIdFileUpload"
           type="file"
@@ -40,17 +40,17 @@ export default function UploadFromDevice({
           <div className="flex flex-col items-center gap-y-2">
             <div
               className="
-                rounded-full bg-blue-100 mb-1 p-1 flex items-center shadow-sm shadow-black/20 justify-center"
+                rounded-full bg-zinc-800 border-zinc-700 border-2 hover:bg-zinc-900 mb-1 p-1 flex items-center shadow-sm shadow-black/20 justify-center"
             >
-              <Upload className="w-10 h-10 text-blue-400 p-2 " />
+              <Upload className="w-10 h-10 text-zinc-300 p-2 " />
             </div>
             <Label
               htmlFor="governmentIdFileUpload"
-              className="text-black text-lg font-medium "
+              className="text-zinc-300 text-lg font-medium "
             >
-              Upload a Photo
+              From device
             </Label>
-            <ul className="text-sm font-medium text-gray-800 ">
+            <ul className="text-sm font-medium text-zinc-300 ">
               <li>Select an existing file or upload a new one</li>
             </ul>
           </div>

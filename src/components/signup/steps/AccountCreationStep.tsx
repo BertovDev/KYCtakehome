@@ -9,7 +9,7 @@ import { SignUpFormValues, signUpSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { step1Endpoint } from "@/lib/routes";
-import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function AccountCreationStep() {
   const router = useRouter();
@@ -44,26 +44,29 @@ export default function AccountCreationStep() {
   });
 
   return !isHydrated ? (
-    <div>Loading...</div>
+    <div className="flex items-center justify-center text-zinc-300">
+      Loading...
+    </div>
   ) : (
-    <div className="flex flex-col lg:flex-row w-full justify-around rounded-lg">
-      <div className=" w-full flex  items-center justify-center border-l border-r-0 rounded-l-lg">
-        <Image
-          src="/images/image2.png"
-          alt="start"
-          width={500}
-          height={300}
-          className="w-full h-full object-cover rounded-l-lg "
-        />
-      </div>
-      <form className="space-y-4 p-5 mx-2 w-full lg:w-3/4 " onSubmit={onSubmit}>
-        <div className="w-full flex items-start mb-6 ">
-          <h1 className="text-2xl font-bold">Sign Up to get started</h1>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col lg:flex-row w-full justify-around rounded-lg"
+    >
+      <form className="space-y-2  p-3 mx-2 w-full" onSubmit={onSubmit}>
+        <div className="w-full flex items-center justify-center mb-6">
+          <h1 className="text-2xl font-bold text-zinc-300 text-center">
+            Sign Up to get started
+          </h1>
         </div>
-        <div className="flex flex-col  justify-center  space-y-10">
+        <div className="flex flex-col  justify-center  space-y-6">
           <div className="space-y-4">
             <div>
-              <Label htmlFor="email" className="block text-sm font-medium mb-2">
+              <Label
+                htmlFor="email"
+                className="block text-sm font-medium mb-2 text-zinc-300"
+              >
                 Email Address
               </Label>
               <Input
@@ -75,16 +78,21 @@ export default function AccountCreationStep() {
                 // disabled={isLoading}
               />
               {errors.email && (
-                <p className="text-red-500 text-sm mt-1">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-red-500 text-sm mt-1"
+                >
                   {errors.email.message?.toString()}
-                </p>
+                </motion.p>
               )}
             </div>
 
             <div>
               <Label
                 htmlFor="password"
-                className="block text-sm font-medium mb-2"
+                className="block text-sm font-medium mb-2 text-zinc-300"
               >
                 Password
               </Label>
@@ -97,16 +105,21 @@ export default function AccountCreationStep() {
                 // disabled={isLoading}
               />
               {errors.password && (
-                <p className="text-red-500 text-sm mt-1">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-red-500 text-sm mt-1"
+                >
                   {errors.password.message?.toString()}
-                </p>
+                </motion.p>
               )}
             </div>
 
             <div>
               <Label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium mb-2"
+                className="block text-sm font-medium mb-2 text-zinc-300"
               >
                 Confirm Password
               </Label>
@@ -119,15 +132,41 @@ export default function AccountCreationStep() {
                 // disabled={isLoading}
               />
               {errors.confirmPassword && (
-                <p className="text-red-500 text-sm mt-1">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-red-500 text-sm mt-1"
+                >
                   {errors.confirmPassword.message?.toString()}
-                </p>
+                </motion.p>
               )}
             </div>
           </div>
           <StepButtons isLoading={isLoading} />
+          {/* <Button
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 border-0 relative overflow-hidden group h-12"
+            asChild
+          >
+            <Link href="/signup">
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></span>
+              <span className="relative z-10 flex items-center">
+                Get Started
+                <motion.div
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{
+                    repeat: Number.POSITIVE_INFINITY,
+                    duration: 1.5,
+                    repeatType: "reverse",
+                  }}
+                >
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </motion.div>
+              </span>
+            </Link>
+          </Button> */}
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 }

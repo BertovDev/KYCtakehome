@@ -75,7 +75,7 @@ export default function ConnectMobileComponent({
       exit={{ opacity: 0 }}
       className="absolute top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center"
     >
-      <div className="relative bg-gray-50 flex items-center flex-col gap-y-7 p-5 py-7  rounded-lg shadow-sm ">
+      <div className="relative bg-white flex items-center flex-col gap-y-7 p-5 py-7  rounded-lg shadow-sm ">
         <h2 className="text-xl font-semibold">
           Scan the QR to open in your mobile app
         </h2>
@@ -91,9 +91,14 @@ export default function ConnectMobileComponent({
           Back
         </Button>
         {errors.governmentIdFile && (
-          <p className="text-red-500 text-sm mt-1">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="text-red-500 text-sm mt-1"
+          >
             {errors.governmentIdFile.message?.toString()}
-          </p>
+          </motion.p>
         )}
       </div>
     </motion.div>

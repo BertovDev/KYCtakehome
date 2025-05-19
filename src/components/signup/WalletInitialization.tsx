@@ -32,10 +32,10 @@ const WalletInitialization = () => {
   }, [progress, isComplete]);
 
   return (
-    <div className="w-full max-w-md  rounded-xl   mx-auto  bg-background p-5">
+    <div className="w-full max-w-md  rounded-xl   mx-auto   p-5">
       <div className=" p-4 space-y-6">
         <div className="pb-4">
-          <CardTitle className="text-center text-3xl font-semibol">
+          <CardTitle className="text-center text-3xl font-semibold text-zinc-300">
             {isComplete ? "Wallet Ready!" : "Checking the information..."}
           </CardTitle>
         </div>
@@ -52,13 +52,13 @@ const WalletInitialization = () => {
                 </motion.div>
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-sm text-zinc-300">
                   <span>Initializing wallet</span>
                   <span>{progress}%</span>
                 </div>
                 <Progress value={progress} className="h-2" />
               </div>
-              <div className="text-center text-sm text-muted-foreground">
+              <div className="text-center text-sm text-zinc-300">
                 Our team is checking the information you provided...
               </div>
             </>
@@ -113,11 +113,9 @@ const WalletInitialization = () => {
                 </div>
               )}
 
-              <div className="space-y-4 text-center">
-                <div className="p-4 bg-blue-50 rounded-xl">
-                  <p className="text-sm text-muted-foreground mb-1">
-                    Starting Balance
-                  </p>
+              <div className="space-y-4 text-center ">
+                <div className="p-4 rounded-xl">
+                  <p className="text-sm text-zinc-300 mb-1">Starting Balance</p>
                   <motion.p
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -130,7 +128,7 @@ const WalletInitialization = () => {
                     </span>
                   </motion.p>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-zinc-300">
                   Your digital wallet has been successfully created. Now you can
                   start tradig your vinils with full security! Enjoy!
                 </p>
@@ -139,7 +137,7 @@ const WalletInitialization = () => {
           )}
         </div>
         <div>
-          <Button
+          {/* <Button
             onClick={() => {
               router.push("/");
             }}
@@ -148,6 +146,23 @@ const WalletInitialization = () => {
           >
             {isComplete ? "Start Trading" : "Setting up..."}
             {isComplete && <ArrowRight className="ml-2 h-4 w-4" />}
+          </Button> */}
+
+          <Button
+            className=" bg-gradient-to-r w-full from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 border-0 relative overflow-hidden group"
+            type="button"
+            disabled={!isComplete}
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            <div>
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></span>
+              <span className="relative z-10 flex items-center">
+                {isComplete ? "Start Trading" : "Setting up..."}
+                {isComplete && <ArrowRight className="ml-2 h-4 w-4" />}
+              </span>
+            </div>
           </Button>
         </div>
       </div>

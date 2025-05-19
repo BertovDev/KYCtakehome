@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import UploadFromMobile from "./uploadOptions/UploadFromMobile";
 import UploadFromDevice from "./uploadOptions/UploadFromDevice";
+import { motion } from "framer-motion";
 
 type ImagePreviewType = {
   idImage: string | null;
@@ -48,10 +49,30 @@ export default function PhotoVerificationStep({
   };
 
   return (
-    <div className="space-y-5 flex flex-col justify-center gap-y-2 items-center pt-8 pb-5  file-upload">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="space-y-5 flex flex-col justify-center gap-y-2 items-center pt-5 pb-5  file-upload"
+    >
       <div className="flex  items-center  flex-col gap-y-1 ml-2 ">
-        <h2 className="text-xl font-bold ">Profile Photo verification </h2>
-        <span className="text-gray-600 text-sm">
+        <div className="text-sm flex flex-row items-center">
+          <motion.div
+            animate={{
+              opacity: [0, 1],
+              y: [-100, 0],
+              transition: { duration: 0.8 },
+            }}
+            className="flex flex-row items-center text-green-500"
+          >
+            ID photo successfully uploaded
+            <Check className="w-4 h-4 ml-2 " />
+          </motion.div>
+        </div>
+        <h2 className="text-xl font-bold text-zinc-300">
+          Profile Photo verification{" "}
+        </h2>
+        <span className="text-zinc-300 text-sm">
           Passport, Drivers License, or ID Card
         </span>
       </div>
@@ -82,12 +103,18 @@ export default function PhotoVerificationStep({
             </div>
             <div className="flex flex-row gap-x-2 w-full ">
               <Button
+                className=" bg-gradient-to-r w-full from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 border-0 relative overflow-hidden group"
                 type="button"
-                onClick={() => setCurrentStep("review")}
-                variant="default"
-                className="w-full "
+                onClick={() => {
+                  setCurrentStep("review");
+                }}
               >
-                Continue
+                <div>
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></span>
+                  <span className="relative z-10 flex items-center">
+                    Continue
+                  </span>
+                </div>
               </Button>
             </div>
           </div>
@@ -107,11 +134,11 @@ export default function PhotoVerificationStep({
               />
             </div>
 
-            <div className="mb-2 p-4 border border-gray-200 rounded-lg bg-blue-50">
-              <h3 className="font-medium text-gray-800 mb-2">
+            <div className="mb-2 p-4 border border-zinc-800 rounded-lg bg-zinc-900">
+              <h3 className="font-medium text-zinc-300 mb-2">
                 Tips for a good selfie:
               </h3>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <ul className="space-y-2 text-sm text-zinc-300">
                 <li className="flex items-start">
                   <Check className="w-4 h-4 text-green-500 mr-2 mt-0.5" />
                   Ensure your face is clearly visible and centered
@@ -141,6 +168,6 @@ export default function PhotoVerificationStep({
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
