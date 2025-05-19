@@ -29,23 +29,23 @@ export default function UploadFromMobile({
         onClick={() => {
           setIsModalOpen(true);
         }}
-        className="flex flex-col gap-y-5 border bg-gray-50  rounded-lg shadow-sm border-gray-200 py-5 px-10 text-center hover:bg-gray-100 transition cursor-pointer"
+        className="flex flex-col gap-y-5 border bg-zinc-900/50 backdrop-blur-sm rounded-lg shadow-sm border-zinc-800 py-5 px-10 text-center hover:bg-zinc-800 transition cursor-pointer"
       >
         <Label htmlFor="governmentIdFileCamera" className="cursor-pointer">
           <div className="flex flex-col items-center gap-y-2 ">
             <div
               className="
-                rounded-full bg-blue-100 mb-1 p-1  flex items-center shadow-sm shadow-black/20 justify-center"
+                rounded-full bg-zinc-800 border-zinc-700 border-2 hover:bg-zinc-900 mb-1 p-1  flex items-center shadow-sm shadow-black/20 justify-center"
             >
-              <Camera className="w-10 h-10 text-blue-400  p-2 " />
+              <Camera className="w-10 h-10 text-zinc-300  p-2 " />
             </div>
             <Label
               htmlFor="governmentIdFileCamera"
-              className="text-black text-lg font-medium "
+              className="text-zinc-300 text-lg font-medium "
             >
               Use Your Phone
             </Label>
-            <ul className="text-sm font-medium text-gray-800 ">
+            <ul className="text-sm font-medium text-zinc-300 ">
               <li>Use your camera to take a photo of your ID</li>
             </ul>
           </div>

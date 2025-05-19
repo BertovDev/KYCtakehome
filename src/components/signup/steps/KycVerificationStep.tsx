@@ -21,6 +21,7 @@ import {
 } from "@/lib/validation";
 import StepButtons from "../StepButtons";
 import { signUpEndpoint, step2Endpoint } from "@/lib/routes";
+import { motion } from "framer-motion";
 
 type CountryData = {
   id: number;
@@ -79,8 +80,10 @@ export default function KycVerificationStep() {
   return !isHydrated ? (
     <p className="text-black text-3xl">Loading...</p>
   ) : (
-    <div className="flex  flex-col w-full px-10 md:px-36 justify-around rounded-lg p-8 space-y-5">
-      <h1 className="text-2xl font-bold mb-2">Enter your details</h1>
+    <div className="flex  flex-col w-full  px-10 justify-around rounded-lg p-8 space-y-5">
+      <h1 className="text-2xl font-bold mb-2 text-zinc-300">
+        Enter your details
+      </h1>
 
       <form
         onSubmit={onSubmit}
@@ -90,7 +93,7 @@ export default function KycVerificationStep() {
           <div>
             <label
               htmlFor="fullName"
-              className="block text-sm font-medium mb-2"
+              className="block text-sm font-medium mb-2 text-zinc-300"
             >
               Full Name
             </label>
@@ -103,13 +106,21 @@ export default function KycVerificationStep() {
               disabled={isLoading}
             />
             {errors.fullname && (
-              <p className="text-red-500 text-sm mt-1">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-red-500 text-sm mt-1"
+              >
                 {errors.fullname.message?.toString()}
-              </p>
+              </motion.p>
             )}
           </div>
           <div>
-            <label htmlFor="address" className="block text-sm font-medium mb-2">
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium mb-2 text-zinc-300"
+            >
               Full Address
             </label>
             <Input
@@ -121,14 +132,22 @@ export default function KycVerificationStep() {
               disabled={isLoading}
             />
             {errors.fullAddress && (
-              <p className="text-red-500 text-sm mt-1">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-red-500 text-sm mt-1"
+              >
                 {errors.fullAddress.message?.toString()}
-              </p>
+              </motion.p>
             )}
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="city" className="block text-sm font-medium mb-2">
+              <Label
+                htmlFor="city"
+                className="block text-sm font-medium mb-2 text-zinc-300"
+              >
                 City
               </Label>
               <Input
@@ -140,13 +159,21 @@ export default function KycVerificationStep() {
                 disabled={isLoading}
               />
               {errors.city && (
-                <p className="text-red-500 text-sm mt-1">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-red-500 text-sm mt-1"
+                >
                   {errors.city.message?.toString()}
-                </p>
+                </motion.p>
               )}
             </div>
             <div>
-              <Label htmlFor="state" className="block text-sm font-medium mb-2">
+              <Label
+                htmlFor="state"
+                className="block text-sm font-medium mb-2 text-zinc-300"
+              >
                 State/Province
               </Label>
               <Input
@@ -158,9 +185,14 @@ export default function KycVerificationStep() {
                 disabled={isLoading}
               />
               {errors.state && (
-                <p className="text-red-500 text-sm mt-1">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-red-500 text-sm mt-1"
+                >
                   {errors.state.message?.toString()}
-                </p>
+                </motion.p>
               )}
             </div>
           </div>
@@ -168,7 +200,7 @@ export default function KycVerificationStep() {
             <div>
               <Label
                 htmlFor="zipcode"
-                className="block text-sm font-medium mb-2"
+                className="block text-sm font-medium mb-2 text-zinc-300"
               >
                 Zip/Postal Code
               </Label>
@@ -181,15 +213,20 @@ export default function KycVerificationStep() {
                 disabled={isLoading}
               />
               {errors.zipcode && (
-                <p className="text-red-500 text-sm mt-1">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-red-500 text-sm mt-1"
+                >
                   {errors.zipcode.message?.toString()}
-                </p>
+                </motion.p>
               )}
             </div>
             <div>
               <Label
                 htmlFor="country"
-                className="block text-sm font-medium mb-2"
+                className="block text-sm font-medium mb-2 text-zinc-300"
               >
                 Country
               </Label>
@@ -203,6 +240,7 @@ export default function KycVerificationStep() {
               >
                 <SelectTrigger>
                   <SelectValue
+                    className="text-white"
                     placeholder={data.country || "Select a country"}
                   />
                 </SelectTrigger>
@@ -218,9 +256,14 @@ export default function KycVerificationStep() {
               </Select>
 
               {errors.country && (
-                <p className="text-red-500 text-sm mt-1">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-red-500 text-sm mt-1"
+                >
                   {errors.country.message?.toString()}
-                </p>
+                </motion.p>
               )}
             </div>
           </div>
@@ -229,7 +272,7 @@ export default function KycVerificationStep() {
             {" "}
             <Label
               htmlFor="dateOfBirth"
-              className="block text-sm font-medium mb-2"
+              className="block text-sm font-medium mb-2 text-zinc-300"
             >
               Date of Birth
             </Label>
@@ -242,9 +285,14 @@ export default function KycVerificationStep() {
               disabled={isLoading}
             />
             {errors.dateOfBirth && (
-              <p className="text-red-500 text-sm mt-1">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-red-500 text-sm mt-1"
+              >
                 {errors.dateOfBirth.message?.toString()}
-              </p>
+              </motion.p>
             )}
           </div>
         </div>

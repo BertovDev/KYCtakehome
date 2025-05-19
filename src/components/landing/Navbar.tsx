@@ -69,7 +69,7 @@ export default function NavBar() {
     >
       <div className="flex items-center justify-between">
         <div className="flex-shrink-0">
-          <Link href="/" className="text-xl font-bold">
+          <Link href="/" className="text-xl font-bold text-white">
             Cryptiva
           </Link>
         </div>

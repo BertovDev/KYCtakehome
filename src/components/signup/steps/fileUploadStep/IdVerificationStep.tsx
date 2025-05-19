@@ -54,9 +54,9 @@ export default function IdVerificationStep({
   return (
     <div className="space-y-5 flex flex-col justify-center gap-y-2 items-center pt-8 pb-5  file-upload">
       <div className="flex  items-center  flex-col gap-y-1 ml-2 ">
-        <h2 className="text-2xl font-bold ">ID verification </h2>
+        <h2 className="text-2xl text-zinc-300 font-bold ">ID verification </h2>
 
-        <span className="text-gray-600 text-sm">
+        <span className="text-zinc-300 text-sm">
           Passport, Drivers License, or ID Card
         </span>
       </div>
@@ -66,7 +66,7 @@ export default function IdVerificationStep({
           <div className="flex flex-col gap-y-5 items-center mt-3">
             <div className="relative max-w-md">
               <Image
-                className="w-full object-contain border-blue-400 border-2 rounded-xl p-0.5"
+                className="w-full object-contain border-zinc-300 border-2 rounded-xl p-0.5"
                 src={imagePreview.idImage}
                 alt="Image Preview"
                 width={200}
@@ -87,14 +87,18 @@ export default function IdVerificationStep({
             </div>
             <div className="flex flex-row gap-x-2 w-full ">
               <Button
+                className=" bg-gradient-to-r w-full from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 border-0 relative overflow-hidden group"
                 type="button"
                 onClick={() => {
                   setCurrentStep("photo");
                 }}
-                variant="default"
-                className="w-full "
               >
-                Continue
+                <div>
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></span>
+                  <span className="relative z-10 flex items-center">
+                    Continue
+                  </span>
+                </div>
               </Button>
             </div>
           </div>
@@ -113,11 +117,11 @@ export default function IdVerificationStep({
                 errors={errors}
               />
             </div>
-            <div className="mb-2 p-4 border border-gray-200 rounded-lg bg-blue-50">
-              <h3 className="font-medium text-gray-800 mb-2">
+            <div className="mb-2 p-4 border border-zinc-500 rounded-lg bg-zinc-900/50 ">
+              <h3 className="font-medium text-zinc-300 mb-2">
                 Tips for a good ID photo:
               </h3>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <ul className="space-y-2 text-sm text-zinc-300">
                 <li className="flex items-start">
                   <Check className="w-4 h-4 text-green-500 mr-2 mt-0.5" />
                   Ensure all 4 corners of your ID are visible

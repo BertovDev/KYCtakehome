@@ -81,7 +81,7 @@ export default function Solutions({}: Props) {
         </motion.div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
-          {solutions.map((solution, index) => (
+          {solutions.map((solution) => (
             <motion.div
               key={solution.title}
               initial={{ opacity: 0, y: 30 }}

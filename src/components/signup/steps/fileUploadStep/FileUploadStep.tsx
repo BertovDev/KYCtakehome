@@ -123,7 +123,7 @@ export default function FileUploadStep() {
   };
 
   return !isHydrated ? (
-    <p className="text-black text-3xl">Loading...</p>
+    <p className="text-white text-3xl">Loading...</p>
   ) : (
     <form onSubmit={onSubmit} className="space-y-6">
       {currentStep === "id" ? (
