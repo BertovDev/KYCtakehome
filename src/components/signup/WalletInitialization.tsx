@@ -153,7 +153,7 @@ const WalletInitialization = () => {
             type="button"
             disabled={!isComplete}
             onClick={() => {
-              router.push("/");
+              router.push("/dashboard");
             }}
           >
             <div>
