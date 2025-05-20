@@ -4,14 +4,10 @@ import { Search, Bell, MessageSquare, Moon, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 type Props = {
-  sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
 };
 
-export default function DashBoardHeader({
-  sidebarOpen,
-  setSidebarOpen,
-}: Props) {
+export default function DashBoardHeader({ setSidebarOpen }: Props) {
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}

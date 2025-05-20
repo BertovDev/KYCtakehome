@@ -39,10 +39,7 @@ export default function DashboardPage() {
       </AnimatePresence>
 
       <div className="flex flex-1 flex-col">
-        <DashBoardHeader
-          sidebarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-        />
+        <DashBoardHeader setSidebarOpen={setSidebarOpen} />
 
         <main className="flex-1 overflow-auto">
           <div className="container mx-auto p-4 lg:p-6">
